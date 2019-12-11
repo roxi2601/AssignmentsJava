@@ -1,0 +1,90 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javax.swing.JOptionPane;
+
+
+public class ExamScheduleControllerGUI
+{
+  ObservableList<String> examSelectList1 = FXCollections.observableArrayList("SDJ1X(Oral)", "SEP1X(Oral)", "SSE1X(Oral)",
+      "MSE1X(Written)", "RWD1X(Written)");
+
+@FXML private MenuBar menuBar;
+@FXML private ComboBox examSelectBox1;
+@FXML private ComboBox examSelectBox2;
+@FXML private ComboBox selectRoomBox;
+@FXML private ComboBox selectDateBox;
+@FXML private ComboBox selectExaminerBox;
+@FXML private ComboBox examSelectBox3;
+@FXML private TextField roomsField;
+@FXML private TextField roomsField2;
+@FXML private TextField roomsField3;
+@FXML private TextField dateField2;
+@FXML private TextField dateField3;
+@FXML private TextField courseField;
+@FXML private TextField courseField2;
+@FXML private TextField courseField3;
+@FXML private TextField examinerField;
+@FXML private TextField examinerField2;
+@FXML private TextField examinerField3;
+@FXML private TextField dateField;
+@FXML private TextField projectorField;
+@FXML private TextField seatsField;
+@FXML private TextField availabilityField;
+@FXML private TextField freeDateField;
+@FXML private Button updateButton;
+@FXML private Button addButton;
+@FXML private Button removeButton;
+@FXML private Button updateButton2;
+@FXML private Button addButton2;
+@FXML private Button removeButton2;
+@FXML private Button updateButton3;
+@FXML private Button addButton3;
+@FXML private Button removeButton3;
+
+
+@FXML private void initialize(){
+ /* examSelectBox1.getItems().addAll( "SDJ1X(Oral)", "SEP1X(Oral)", "SSE1X(Oral)",
+      "MSE1X(Written)", "RWD1X(Written)" ); */
+ examSelectBox1.setItems( examSelectList1 );
+
+ selectRoomBox.getItems().addAll( "301a", "301b", "303", "other rooms" );
+
+  examSelectBox2.getItems().addAll( "SDJ1X(Oral)", "SEP1X(Oral)", "SSE1X(Oral)",
+      "MSE1X(Written)", "RWD1X(Written)" );
+  selectDateBox.getItems().addAll( "date1", "date2", "date3", "date4" );
+
+  examSelectBox3.getItems().addAll("SDJ1X(Oral)", "SEP1X(Oral)", "SSE1X(Oral)",
+      "MSE1X(Written)", "RWD1X(Written)"  );
+
+  selectExaminerBox.getItems().addAll( "Examiner 1", "Examiner 2", "Examiner 3", "Examiner 4");
+}
+
+public void roomsFieldUpdated(){
+  this.roomsField.setText( selectRoomBox.getValue().toString() );
+}
+
+  public void dateFieldUpdated(){
+    this.dateField2.setText( selectDateBox.getValue().toString() );
+  }
+
+  public void examinerFieldUpdated(){
+  examinerField3.setText( selectExaminerBox.getValue().toString() );
+  }
+
+
+
+
+  public void handleAction(ActionEvent e){
+
+
+
+  }
+
+
+
+
+
+}
