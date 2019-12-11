@@ -195,7 +195,12 @@ public class MenageCourseDataTab extends Tab
         if(temp.equals(newCourse))
         {
           removeButton.isDisable(); //???
-
+        }
+        else
+        {
+          adapter.removeCourse(courseBox.getSelectionModel().getSelectedItem());
+          numberOfStudentsField.setEditable(true);
+          numberOfStudentsField.setEditable(true);
         }
 
       }
