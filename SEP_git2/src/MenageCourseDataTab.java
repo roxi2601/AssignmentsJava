@@ -13,165 +13,191 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+/**
+ * A GUI tab containing components for changing course.
+ * @author Roksana Dziadowicz
+ * @version 1.0
+ */
 public class MenageCourseDataTab extends Tab
 {
-  private VBox changeCoursePane;
-  private HBox changeCourseTopPane;
-  private FlowPane comboPane;
-
-  private Label courseNameLabel;
-  private Label examLabel;
-  private Label teacherLabel;
-  private Label roomLabel;
-  private Label dateLabel;
-
-  private GridPane changeCourseInputPane;
-
-  private ComboBox<ExamSchedule> examBox;
-  private TextField courseNameField;
-  private TextField examField;
-  private TextField teacherField;
-  private TextField roomField;
-  private TextField dateField;
+  private HBox manegeCourseDataTab;
 
   private FlowPane imagePane;
   private Image logo;
   private ImageView logoView;
 
-  private Button updateButton;
+
+  private  GridPane courseData;
+  private VBox allCourseData;
+  private HBox addAndRemoveButtons;
+
+  private Button addButton;
+  private Button removeButton;
+
+  private ComboBox<Course>courseBox;
+  private ComboBox<Teacher>teacherBox;
+  private ComboBox<String>typeBox;
+  private ComboBox<Room>roomBox;
+
+  private Label courseLabel;
+  private Label courseNameLabel;
+  private Label teacherLabel;
+  private Label roomLabel;
+  private Label typeLabel;
+  private Label numberOfStudentsLabel;
+
+  private TextField courseNameField;
+  private TextField numberOfStudentsField;
+
+  private Course newCourse;
 
   private MyActionListener listener;
 
-  private ExamScheduleAdapter adapter;
+  private CourseAdapter adapter;
 
-  public MenageCourseDataTab(String title, ExamScheduleAdapter adapter)
+  /**
+   * Constructor initializing the GUI components
+   * @param title The title of the tab
+   * @param adapter CourseAdapter object used for retrieving and storing course information
+   */
+  public MenageCourseDataTab(String title, CourseAdapter adapter)
   {
     super(title);
+    this.adapter=adapter;
 
-    this.adapter = adapter;
+    manegeCourseDataTab = new HBox(20);
 
-    listener = new MyActionListener();
+    allCourseData = new VBox(20);
 
-    updateButton = new Button("Update");
-    updateButton.setOnAction(listener);
+    courseLabel = new Label("Course:");
+    courseBox = new ComboBox<Course>();
 
-    changeCoursePane = new VBox(20);
-    changeCoursePane.setPadding(new Insets(10));
+    courseNameLabel = new Label("Course name:");
+    courseNameField = new TextField();
 
-    changeCourseTopPane = new HBox(20);
+    teacherLabel = new Label("Teacher:");
+    teacherBox = new ComboBox<Teacher>();
 
-    examBox=new ComboBox<ExamSchedule>();
-    examBox.setOnAction(listener);
+    roomLabel = new Label("Room:");
+    roomBox = new ComboBox<Room>();
 
-    comboPane = new FlowPane();
-    comboPane.setAlignment(Pos.BASELINE_RIGHT);
-    comboPane.setPrefWidth(200);
-    comboPane.getChildren().add(examBox);
+    typeLabel = new Label("Exam type:");
+    typeBox = new ComboBox<String>();
+    typeBox.getItems().add("Written");
+    typeBox.getItems().add("Oral");
 
-    courseNameLabel=new Label("Course name:");
-    examLabel=new Label("Exam type:");
-    teacherLabel=new Label("Examiner:");
-    roomLabel=new Label("Room number:");
-    dateLabel=new Label("Date");
+    numberOfStudentsLabel = new Label("Number of students:");
+    numberOfStudentsField = new TextField();
 
-    courseNameField=new TextField();
-    examField=new TextField();
-    examField.setEditable(false);
-    teacherField=new TextField();
-    teacherField.setEditable(false);
-    roomField=new TextField();
-    roomField.setEditable(false);
-    dateField=new TextField();
-    dateField.setEditable(false);
+    addAndRemoveButtons = new HBox(20);
+    addButton = new Button("Add");
+    removeButton = new Button("Remove");
+    addAndRemoveButtons.getChildren().add(addButton);
+    addAndRemoveButtons.getChildren().add(removeButton);
 
-    changeCourseInputPane = new GridPane();
-    changeCourseInputPane.setHgap(5);
-    changeCourseInputPane.setVgap(5);
+    courseData = new GridPane();
+    courseData.setHgap(5);
+    courseData.setVgap(5);
+    courseData.addRow(0,courseLabel, courseBox);
+    courseData.addRow(1, courseNameLabel, courseNameField);
+    courseData.addRow(2, teacherLabel, teacherBox);
+    courseData.addRow(3, roomLabel, roomBox);
+    courseData.addRow(4, typeLabel, typeBox);
+    courseData.addRow(5, numberOfStudentsLabel, numberOfStudentsField);
 
-    changeCourseInputPane.addRow(0, courseNameLabel, courseNameField);
-    changeCourseInputPane.addRow(1, examLabel, examField);
-    changeCourseInputPane.addRow(2, teacherLabel, teacherField);
-    changeCourseInputPane.addRow(3, roomLabel, roomField);
-    changeCourseInputPane.addRow(4, dateLabel, dateField);
+    allCourseData.getChildren().add(courseData);
+    allCourseData.getChildren().add(addAndRemoveButtons);
 
-    changeCourseInputPane.getChildren().add(changeCourseInputPane);
-    changeCourseInputPane.getChildren().add(comboPane);
-
-    logo=new Image("vialogoah.gif");
-    logoView=new ImageView(logo);
+    logo = new Image("file:vialogoah.gif");
+    logoView = new ImageView(logo);
     imagePane = new FlowPane();
     imagePane.setPrefHeight(200);
     imagePane.setAlignment(Pos.BOTTOM_CENTER);
     imagePane.getChildren().add(logoView);
 
-    changeCoursePane.getChildren().add(changeCourseTopPane);
-    changeCoursePane.getChildren().add(updateButton);
-    changeCoursePane.getChildren().add(imagePane);
+    manegeCourseDataTab.getChildren().add(allCourseData);
+    manegeCourseDataTab.getChildren().add(imagePane);
 
-    super.setContent(changeCoursePane);
+    super.setContent(manegeCourseDataTab);
   }
+  /**
+   * Enables or disables editing of courseNameField and numberOfStudentsField.
+   * @param bool if true then the fields will be editable, if false then they will not
+   */
   public void changeEditableState(boolean bool)
   {
-    examField.setEditable(bool);
-    teacherField.setEditable(bool);
-    roomField.setEditable(bool);
-    dateField.setEditable(bool);
+    courseNameField.setEditable(bool);
+    numberOfStudentsField.setEditable(bool);
   }
 
-  public void updateExamBox()
+  /**
+   * Updates the courseBox ComboBox with information from the courses file
+   */
+  public void updateCourseBox()
   {
-    int currentIndex = examBox.getSelectionModel().getSelectedIndex();
+    int currentIndex = courseBox.getSelectionModel().getSelectedIndex();
 
-    examBox.getItems().clear();
+    courseBox.getItems().clear();
 
-    ExamSchedule exams = adapter.getAllExams();
-    for (int i = 0; i < exams.size(); i++)
+    CourseList courses = adapter.getAllCourses();
+    for (int i = 0; i < courses.size(); i++)
     {
-      examBox.getItems().add(exams.get(i));
+      courseBox.getItems().add(courses.getAllCourses().get(i));
     }
 
-    if (currentIndex == -1 && examBox.getItems().size() > 0)
+    if (currentIndex == -1 && courseBox.getItems().size() > 0)
     {
-      examBox.getSelectionModel().select(0);
+      courseBox.getSelectionModel().select(0);
     }
     else
     {
-      examBox.getSelectionModel().select(currentIndex);
+      courseBox.getSelectionModel().select(currentIndex);
     }
   }
+
+  /*
+   * Inner action listener class
+   * @author Roksana Dziadowicz
+   * @version 1.0
+   */
   private class MyActionListener implements EventHandler<ActionEvent>
   {
     public void handle(ActionEvent e)
     {
-      if (e.getSource() == updateButton)
+      if(e.getSource() == addButton)
       {
+        Course temp = courseBox.getSelectionModel().getSelectedItem();
         String courseName = courseNameField.getText();
-        String exam = examField.getText();
-        String teacher = teacherField.getText();
-        String room = roomField.getText();
-        String date = dateField.getText();
+        int numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
 
-        if (courseName.equals(""))
+        if(temp.equals(newCourse))
         {
-          courseName = "?";
+          adapter.addObject(courseBox.getSelectionModel().getSelectedItem());
+          numberOfStudentsField.setEditable(true);
+          courseNameField.setEditable(true);
+          courseNameField.setText("");
+          numberOfStudentsField.setText("");
         }
-
-        adapter.changeCourse(courseName, exam, teacher, room, date);
-        updateExamBox();
-        courseNameField.setText("");
+        else
+        {
+          adapter.changeCourse(courseBox.getSelectionModel().getSelectedItem());
+          numberOfStudentsField.setEditable(true);
+          courseNameField.setEditable(true);
+        }
+        updateCourseBox();
       }
-      else if (e.getSource() == examBox)
+      else if(e.getSource() == removeButton)
       {
-        Exam temp = examBox.getSelectionModel().getSelectedItem();
-
-        if (temp != null)
+        Course temp = courseBox.getSelectionModel().getSelectedItem();
+        String courseName = courseNameField.getText();
+        int numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
+        if(temp.equals(newCourse))
         {
-          courseNameField.setText(String.valueOf(temp.getCourse()));
-          examField.setText(String.valueOf(temp.getType())); //??????
-          teacherField.setPromptText(String.valueOf(temp.getExaminer()));
-          roomField.setPromptText(String.valueOf(temp.getRoom()));
-          dateField.setPromptText(String.valueOf(temp.getDate()));
+          removeButton.isDisable(); //???
+
         }
+
       }
     }
   }
