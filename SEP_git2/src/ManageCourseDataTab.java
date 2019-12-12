@@ -13,7 +13,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 /**
  * A GUI tab containing components for changing course.
  * @author Roksana Dziadowicz
