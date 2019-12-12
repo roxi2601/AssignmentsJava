@@ -29,6 +29,9 @@ public abstract class Exam implements Serializable
     this.date=date;
     this.course=course;
   }
+
+  //!!!!!!!!!! IF I WILL HAVE TIME I WILL TAKE CARE OF COEXAMINER THING!!!!!!!!!!!!!1
+
   /**
    * Five-argument constructor.
    * @param course the exam's course

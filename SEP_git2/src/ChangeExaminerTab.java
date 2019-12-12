@@ -59,14 +59,12 @@ public class ChangeExaminerTab extends Tab
 
   /**
    * Constructor initializing the GUI components
-   *
    * @param title   The title of the tab
-   * @param adapter TeacherAdapter object used for retrieving and storing examiner information
    */
-  public ChangeExaminerTab(String title, TeacherAdapter adapter)
+  public ChangeExaminerTab(String title)
   {
     super(title);
-    this.adapter = adapter;
+    this.adapter = new TeacherAdapter();
 
     newExaminer = new Teacher("New","");
 

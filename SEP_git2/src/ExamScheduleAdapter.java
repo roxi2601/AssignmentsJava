@@ -11,10 +11,10 @@ public class ExamScheduleAdapter
   private MyFileIO mfio;
   private String fileName;
 
-  public ExamScheduleAdapter(String fileName)
+  public ExamScheduleAdapter()
   {
     mfio = new MyFileIO();
-    this.fileName = fileName;
+    this.fileName = "exams.bin";
   }
 
   // Use the MyFileIO class to retrieve a CourseList object with all Students
@@ -68,32 +68,30 @@ public class ExamScheduleAdapter
         canBeAdded = false;
       }
     }
-    if(course.getExamType().equals("Oral"))
+    if(course.getExamType().equals("Oral")&& canBeAdded && course.getRoom().equals(room))
     {
-      if(course.getTeacher().equals(examiner))
-      {
-        canBeAdded=false;
-      }
       exams.addExam(new Oral(course, examiner, date, room));
     }
-    else if(course.getExamType().equals("Written"))
+    else if(course.getExamType().equals("Written")&& canBeAdded)
     {
       exams.addExam(new Written(course, examiner, date, room));
     }
     saveExamSchedule(exams);
   }
-  public void removeExam(MyDate date, Room room)
+  public void removeExam(Exam exam)
   {
     ExamSchedule exams = getAllExams();
     for(int i = 0;i<exams.size();i++)
     {
-      if(exams.getExam(i).getRoom().equals(room) && exams.getExam(i).getDate().equals(date))
+      if(exams.getExam(i).equals(exam))
       {
-        exams.removeExam(exams.getExam(i));
+        exams.removeExam(exam);
       }
     }
     saveExamSchedule(exams);
   }
+  public void changeExam(Exam exam, Exam changedExam)
+  {}
   public void changeCourse(Course course,MyDate date, Room room)
   {
     ExamSchedule exams = getAllExams();
@@ -107,23 +105,20 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
-  public void changeDate(Course course, MyDate date, Room room)
+  public void changeDate(Exam exam, MyDate date)
   {
     ExamSchedule exams = getAllExams();
     boolean canBeReserved = true;
-    for(int j = 0;j<exams.size();j++)
+    for(int i = 0;i<exams.size();i++)
     {
-      if(exams.getExam(j).getDate().equals(date)&& exams.getExam(j).getRoom().equals(room))
+      if(exams.getExam(i).getRoom().equals(exam.getRoom()) && exams.getExam(i).getDate().equals(date))
       {
         canBeReserved = false;
       }
     }
-    for (int i = 0; i < exams.size(); i++)
+    if(canBeReserved)
     {
-      if(exams.getExam(i).getCourse().equals(course) && exams.getExam(i).getRoom().equals(room));
-      {
-        exams.getExam(i).setDate(date);
-      }
+      exam.setDate(date);
     }
     saveExamSchedule(exams);
   }

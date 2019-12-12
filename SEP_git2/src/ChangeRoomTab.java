@@ -57,13 +57,12 @@ public class ChangeRoomTab extends Tab
   /**
    * Constructor initializing the GUI components
    * @param title The title of the tab
-   * @param adapter RoomAdapter object used for retrieving and storing room information
    */
-  public ChangeRoomTab(String title, RoomAdapter adapter)
+  public ChangeRoomTab(String title)
   {
     super(title);
 
-    this.adapter = adapter;
+    this.adapter = new RoomAdapter();
 
     listener = new MyActionListener();
 
@@ -187,24 +186,25 @@ public class ChangeRoomTab extends Tab
         int seats = Integer.parseInt(seatsField.getText());
         String roomNumber = roomNumberField.getText();
         Room room=new Room(roomNumber,seats);
+        if(projectorBox.isSelected())
+         {
+          room.setProjector(true);
+         }
+        else
+        {
+          room.setProjector(false);
+        }
         if(temp.equals(newRoom))
         {
-          if(projectorBox.isSelected())
-          {
-          room.setProjector(true);
-          }
-          else
-          {
-          room.setProjector(false);
-          }
+
           adapter.addRoom(room);
-          updateRoomBox();
         }
         else
         {
           adapter.changeRoom(temp, room);
-          updateRoomBox();
         }
+        updateRoomBox();
+        roomField.setText(room.toString());
       }
       else if(e.getSource() == removeButton)
       {
@@ -213,6 +213,8 @@ public class ChangeRoomTab extends Tab
         {
           adapter.removeRoom(temp);
         }
+        updateRoomBox();
+        roomField.setText("?");
       }
         if (e.getSource() == examBox)
       {

@@ -49,22 +49,22 @@ public class ExamTab extends Tab
   private Room allRooms;
   private Teacher allTeachers;
 
-  //If I will have time I will also do date picker which displays exams only on picked date :)
+  //If I will have time I will also add date picker to display exams only on picked date :)
 
   private MyActionListener listener;
 
   private ExamScheduleAdapter examsAdapter;
   private CourseAdapter coursesAdapter;
   private RoomAdapter roomAdapter;
-  private TeachersAdapter teachersAdapter;
+  private TeacherAdapter teachersAdapter;
 
-  public ExamTab(String title,ExamScheduleAdapter adapter,CourseAdapter courseAdapter,TeacherAdapter teacherAdapter)
+  public ExamTab(String title)
   {
    super(title);
 
-   this.examsAdapter = new ExamScheduleAdapter("exams.bin");
+   this.examsAdapter = new ExamScheduleAdapter();
    this.coursesAdapter = new CourseAdapter();
-   this.teachersAdapter = new TeachersAdapter();
+   this.teachersAdapter = new TeacherAdapter();
    this.roomAdapter = new RoomAdapter();
 
    listener = new MyActionListener();
@@ -149,20 +149,12 @@ public class ExamTab extends Tab
       examsTable.getItems().add(exams.get(i));
     }
   }
-  public void updateExamBox()
-  {
-    examBox.getItems().clear();
-    ExamSchedule exams = examsAdapter.getAllExams();
-    for(int i = 0;i<exams.size();i++)
-    {
-     examBox.getItems().add(exams.get(i));
-    }
-  }
+
   public void updateCourseBox()
   {
     int currentIndex = courseBox.getSelectionModel().getSelectedIndex();
-
     courseBox.getItems().clear();
+    courseBox.getItems().add(allCourses);
     CourseList courses = coursesAdapter.getAllCourses();
     courses.addCourse(allCourses);
     for (int i = 0; i < courses.size(); i++)
@@ -184,11 +176,11 @@ public class ExamTab extends Tab
     int currentIndex = roomBox.getSelectionModel().getSelectedIndex();
 
     roomBox.getItems().clear();
+    roomBox.getItems().add(allRooms);
     RoomList rooms= roomAdapter.getAllRooms();
-    rooms.addRoom(allRooms);
     for (int i = 0; i < rooms.size(); i++)
     {
-      roomBox.getItems().add(rooms.getAllRooms().get(i));
+      roomBox.getItems().add(rooms.getRoom(i));
     }
 
     if (currentIndex == -1 && roomBox.getItems().size() > 0)
@@ -205,11 +197,11 @@ public class ExamTab extends Tab
     int currentIndex = examinerBox.getSelectionModel().getSelectedIndex();
 
     examinerBox.getItems().clear();
+    examinerBox.getItems().add(allTeachers);
     TeacherList examiners= teachersAdapter.getAllTeachers();
-    examiners.addExaminer(allTeachers);
     for (int i = 0; i < examiners.size(); i++)
     {
-      examinerBox.getItems().add(teachersAdapter.getAllTeachers().get(i));
+      examinerBox.getItems().add(examiners.getTeacher(i));
     }
 
     if (currentIndex == -1 && examinerBox.getItems().size() > 0)

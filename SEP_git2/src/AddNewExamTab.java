@@ -47,12 +47,11 @@ public class AddNewExamTab extends Tab
   /**
    * Constructor initializing the GUI components
    * @param title The title of the tab
-   * @param adapter ExamScheduleAdapter object used for retrieving and storing exam information
    */
-  public AddNewExamTab(String title, ExamScheduleAdapter adapter)
+  public AddNewExamTab(String title)
   {
     super(title);
-    this.adapter=adapter;
+    this.adapter= new ExamScheduleAdapter();
 
     listener = new MyActionListener();
 
@@ -94,27 +93,6 @@ public class AddNewExamTab extends Tab
 
     super.setContent(addNewExamTab);
   }
-  /*public void updateExamBox() is it useful???????
-  {
-    int currentIndex = examBox.getSelectionModel().getSelectedIndex();
-
-    examBox.getItems().clear();
-
-    ExamSchedule exams = adapter.getAllExams();
-    for (int i = 0; i < exams.size(); i++)
-    {
-      examBox.getItems().add(exams.getAllExams().get(i));
-    }
-
-    if (currentIndex == -1 && examBox.getItems().size() > 0)
-    {
-      examBox.getSelectionModel().select(0);
-    }
-    else
-    {
-      examBox.getSelectionModel().select(currentIndex);
-    }
-  }*/
 
   /*
    * Inner action listener class
@@ -127,9 +105,14 @@ public class AddNewExamTab extends Tab
     {
       if (e.getSource() == addButton)
       {
-        MyDate date = new MyDate(datePicker.getValue().getDayOfMonth(), datePicker.getValue().getMonthValue(),datePicker.getValue().getYear());
-        adapter.addExam(courseBox.getSelectionModel().getSelectedItem(),examinerBox.getSelectionModel().getSelectedItem(),
-            roomBox.getSelectionModel().getSelectedItem(),date);
+        int day = datePicker.getValue().getDayOfMonth();
+        int month  = datePicker.getValue().getMonthValue();
+        int year = datePicker.getValue().getYear();
+        MyDate date = new MyDate(day,month,year);
+        Course course = courseBox.getSelectionModel().getSelectedItem();
+        Teacher examiner = examinerBox.getSelectionModel().getSelectedItem();
+        Room room = roomBox.getSelectionModel().getSelectedItem();
+        adapter.addExam(course, examiner, room, date);
       }
     }
   }

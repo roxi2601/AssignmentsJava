@@ -59,12 +59,11 @@ public class MenageCourseDataTab extends Tab
   /**
    * Constructor initializing the GUI components
    * @param title The title of the tab
-   * @param adapter CourseAdapter object used for retrieving and storing course information
    */
-  public MenageCourseDataTab(String title, CourseAdapter adapter)
+  public MenageCourseDataTab(String title)
   {
     super(title);
-    this.adapter=adapter;
+    this.adapter=new CourseAdapter();
     listener = new MyActionListener();
     newCourse =  new Course("New",null,null,"",0);
 

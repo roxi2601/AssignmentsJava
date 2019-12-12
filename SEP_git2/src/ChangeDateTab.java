@@ -12,7 +12,7 @@ import javafx.scene.control.DatePicker;
 
 /**
  * A GUI tab containing components for changing a exam's date.
- * @author
+ * @author Julia Tankiewicz and Roksana Dziadowicz
  * @version 1.0
  */
 public class ChangeDateTab extends Tab
@@ -55,12 +55,11 @@ public class ChangeDateTab extends Tab
   /**
    * Constructor initializing the GUI components
    * @param title The title of the tab
-   * @param adapter ExamScheduleAdapter object used for retrieving and storing date information
    */
-  public ChangeDateTab(String title, ExamScheduleAdapter adapter)
+  public ChangeDateTab(String title)
   {
     super(title);
-    this.adapter=adapter;
+    this.adapter=new  ExamScheduleAdapter();
 
     listener = new MyActionListener();
 
@@ -137,20 +136,6 @@ public class ChangeDateTab extends Tab
 
     super.setContent(changeDatePane);
   }
-  /**
-   * Enables or disables editing of examinerField, courseField, roomField, dateField, dayField, monthField and yearField.
-   * @param bool if true then the fields will be editable, if false then they will not
-   */
-  public void changeEditableState (boolean bool)
-  {
-    examinerField.setEditable(bool);
-    roomField.setEditable(bool);
-    dateField.setEditable(bool);
-    courseField.setEditable(bool);
-    dayField.setEditable(bool);
-    monthField.setEditable(bool);
-    yearField.setEditable(bool);
-  }
   public void updateExamBox()
     {
       int currentIndex = examBox.getSelectionModel().getSelectedIndex();
@@ -187,7 +172,8 @@ public class ChangeDateTab extends Tab
         int month = Integer.parseInt(monthField.getText());
         int year = Integer.parseInt(yearField.getText());
         MyDate date  = new MyDate(day, month,year);
-        adapter.changeDate(examBox.getSelectionModel().getSelectedItem().getCourse(),date, examBox.getSelectionModel().getSelectedItem().getRoom());
+        Exam exam = examBox.getSelectionModel().getSelectedItem();
+        adapter.changeDate(exam, date);
       }
       else if (e.getSource() == examBox)
       {

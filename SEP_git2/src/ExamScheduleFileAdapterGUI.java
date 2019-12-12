@@ -51,15 +51,20 @@ public class ExamScheduleFileAdapterGUI extends Application
   {
     window.setTitle("Exam Schedule");
 
-    adapter = new ExamScheduleAdapter("exams.bin");
+    adapter = new ExamScheduleAdapter();
 
     listener = new MyActionListener();
     tabListener = new MyTabListener();
 
     tabPane = new TabPane();
-    tabPane.getSelectionModel().selectedItemProperty().addListener(tabListener);//why error :((
+    tabPane.getSelectionModel().selectedItemProperty().addListener(tabListener);
 
-    examsTab = new ExamTab("Exams", adapter);
+    examsTab = new ExamTab("Exams");
+    changeCourseTab = new MenageCourseDataTab("Course Data");
+    changeExaminerTab =new  ChangeExaminerTab("Change Examiner");
+    changeRoomTab =new  ChangeRoomTab("Change Room");
+    changeDateTab =new  ChangeDateTab("Change Date");
+    addNewTab =new AddNewExamTab("Add new");
 
 
   }
