@@ -22,7 +22,7 @@ public class ExamScheduleFileAdapterGUI extends Application
 
   private TabPane tabPane;
   private ExamTab examsTab;
-  private MenageCourseDataTab changeCourseTab;
+  private ManageCourseDataTab changeCourseTab;
   private ChangeExaminerTab changeExaminerTab;
   private ChangeRoomTab changeRoomTab;
   private ChangeDateTab changeDateTab;

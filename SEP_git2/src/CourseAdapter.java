@@ -3,24 +3,51 @@ import java.io.IOException;
 
 /**
  *  A class to handle input and output streams for Courses.
- * @author Julia Tankiewicz
+ * @author Prabhjot Singh
  * @version 1.0
  */
 public class CourseAdapter
 {
-  private MyFileIO mfio;
+  private MyFileIO fileIO;
   private String fileName;
 
   public CourseAdapter(){
-    mfio = new MyFileIO();
-    fileName = "courses.bin";
+    fileIO = new MyFileIO();
+    fileName = "coursedata.bin";
   }
-  public CourseList getAllCourses()
+
+  public void addObject(Course obj){
+    try
+    {
+      fileIO.writeToFile(fileName, obj);
+    }
+    catch (FileNotFoundException e){
+      System.out.println("File not found");
+    }
+    catch (IOException e)
+    {
+      System.out.println("IO error writing to file");
+    }
+  }
+  public void changeCourse(Course course,MyDate date, Room room)
   {
+    ExamSchedule exams = getAllExams();
+
+    for (int i = 0; i < exams.size(); i++)
+    {
+      if(exams.getExam(i).getDate().equals(date) && exams.getExam(i).getRoom().equals(room));
+      {
+        exams.getExam(i).setCourse(course);
+      }
+    }
+    saveExamSchedule(exams);
+  }
+
+  public CourseList getAllCourses(){
     CourseList courses = new CourseList();
     try
     {
-      courses = (CourseList) mfio.readObjectFromFile(fileName);
+      courses = (CourseList) fileIO.readObjectFromFile(fileName);
     }
     catch (IOException e)
     {
@@ -31,51 +58,5 @@ public class CourseAdapter
       e.printStackTrace();
     }
     return courses;
-  }
-  public  void saveCourses(CourseList courses)
-  {
-    try
-    {
-      mfio.writeToFile(fileName,courses);
-    }
-    catch (FileNotFoundException e)
-    {
-      System.out.println("File not found");
-    }
-    catch (IOException e)
-    {
-      System.out.println("IO Error writing to file");
-    }
-  }
-  public void addCourse(Course course)
-  {
-    CourseList courses = getAllCourses();
-    courses.addCourse(course);
-    saveCourses(courses);
-  }
-  public void removeCourse(Course course)
-  {
-    CourseList courses = getAllCourses();
-    for(int i = 0;i<courses.size();i++)
-    {
-      if(courses.getCourse(i).equals(course))
-      {
-        courses.removeCourse(i);
-      }
-    }
-    saveCourses(courses);
-  }
-  public void changeCourse(Course course, Course changedCourse)
-  {
-    CourseList courses = getAllCourses();
-    for(int i = 0;i<courses.size();i++)
-    {
-      if(courses.getCourse(i).equals(course))
-      {
-        courses.removeCourse(i);
-        courses.addCourse(changedCourse);
-      }
-    }
-    saveCourses(courses);
   }
 }
