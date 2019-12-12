@@ -11,8 +11,6 @@ public class MyDate implements Serializable
   private int day;
   private int month;
   private int year;
-  private ArrayList<TimePeriod> hours;// delate it and make it as one class with two hours parameters
-
   /**
    * Three-argument constructor.
    * @param day the day of the exam
@@ -21,21 +19,10 @@ public class MyDate implements Serializable
    */
   public MyDate(int day, int month, int year)
   {
-    hours = new ArrayList<TimePeriod>();
     this.day=day;
     this.month=month;
     this.year=year;
   }
-
-  /**
-   * Sets hours of exam.
-   * @param hour the hour of the exam
-   */
-  public void setHours(TimePeriod hour)
-  {
-    hours.add(hour);
-  }
-
   /**
    * Sets the day of the exam.
    * @param day what the exam's day will be set to
@@ -87,16 +74,6 @@ public class MyDate implements Serializable
   {
     return year;
   }
-
-  /**
-   * Gets hours of the exam.
-   * @return hours of the exam
-   */
-  public ArrayList<TimePeriod> getHours()
-  {
-    return hours;
-  }
-
   /**
    * Copies information from MyDate class.
    * @return copied information from MyDate class
@@ -105,21 +82,14 @@ public class MyDate implements Serializable
   {
     return new MyDate(day,month,year);
   }
-
   /**
    * Returns a string representation of the date.
    * @return a string representation of the date in the format: "day/month/year hours"
    */
   public String toString()
   {
-    String str="";
-    for(int i = 0;i<hours.size();i++)
-    {
-      str+=hours.get(i)+" ";
-    }
-    return day+"/"+month+"/"+year+" "+str;
+    return day+"/"+month+"/"+year;
   }
-
   /**
    * Compares day, month and year of two exams.
    * @param obj the object to compare with

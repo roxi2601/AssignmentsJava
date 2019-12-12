@@ -69,6 +69,7 @@ public class ChangeRoomTab extends Tab
 
     changeRoomPane = new HBox(20);
 
+    newRoom = new Room("New",0);
     //exam data-start
        examPane = new VBox(20);
        examPane.setPrefWidth(200);
@@ -139,7 +140,8 @@ public class ChangeRoomTab extends Tab
     roomPane.getChildren().add(roomBox);
     roomPane.getChildren().add(projectorBox);
     roomPane.getChildren().add(changeRoomInputPane);
-    roomPane.getChildren().add(addAndRemoveButtons); //room data-end
+    roomPane.getChildren().add(addAndRemoveButtons);
+    //room data-end
 
     changeRoomPane.getChildren().add(examPane);
     changeRoomPane.getChildren().add(roomPane);
@@ -147,18 +149,6 @@ public class ChangeRoomTab extends Tab
     super.setContent(changeRoomPane);
 
   }
-    /**
-     * Enables or disables editing of roomField, courseField, examinerField, dateField and roomNumberField.
-     * @param bool if true then the fields will be editable, if false then they will not
-     */
-    public void changeEditableState (boolean bool)
-    {
-      roomField.setEditable(bool);
-      courseField.setEditable(bool);
-      examinerField.setEditable(bool);
-      dateField.setEditable(bool);
-      roomNumberField.setEditable(bool);
-    }
   /**
    * Updates the roomBox ComboBox with information from the room file
    */
@@ -167,13 +157,12 @@ public class ChangeRoomTab extends Tab
     int currentIndex = roomBox.getSelectionModel().getSelectedIndex();
 
     roomBox.getItems().clear();
-
+    roomBox.getItems().add(newRoom);
     RoomList rooms = adapter.getAllRooms();
     for (int i = 0; i < rooms.size(); i++)
     {
       roomBox.getItems().add(rooms.getAllRooms().get(i));
     }
-
     if (currentIndex == -1 && roomBox.getItems().size() > 0)
     {
       roomBox.getSelectionModel().select(0);
@@ -197,48 +186,32 @@ public class ChangeRoomTab extends Tab
         Room temp = roomBox.getSelectionModel().getSelectedItem();
         int seats = Integer.parseInt(seatsField.getText());
         String roomNumber = roomNumberField.getText();
+        Room room=new Room(roomNumber,seats);
         if(temp.equals(newRoom))
         {
-          adapter.addObject(examBox.getSelectionModel().getSelectedItem().getCourse(), examBox.getSelectionModel().getSelectedItem().getDate(), room);
-          updateRoomBox();
-          seatsField.setText("");
-          Room room=new Room(roomNumber,seats);
-        if(projectorBox.isSelected())
-        {
+          if(projectorBox.isSelected())
+          {
           room.setProjector(true);
-        }
-        else
-        {
+          }
+          else
+          {
           room.setProjector(false);
-        }
+          }
+          adapter.addRoom(room);
+          updateRoomBox();
         }
         else
         {
-          adapter.changeRoomData(examBox.getSelectionModel().getSelectedItem().getCourse(), examBox.getSelectionModel().getSelectedItem().getDate(), room);
+          adapter.changeRoom(temp, room);
           updateRoomBox();
-          seatsField.setText("");
         }
-
       }
-        else if(e.getSource() == removeButton)
+      else if(e.getSource() == removeButton)
       {
         Room temp = roomBox.getSelectionModel().getSelectedItem();
         if(!(temp.equals(newRoom)))
         {
-          int seats = Integer.parseInt(seatsField.getText());
-          String roomNumber = roomNumberField.getText();
-          Room room=new Room(roomNumber,seats);
-          if(projectorBox.isSelected())
-          {
-            room.setProjector(true);
-          }
-          else
-          {
-            room.setProjector(false);
-          }
-          adapter.removeRoom(examBox.getSelectionModel().getSelectedItem().getCourse(), examBox.getSelectionModel().getSelectedItem().getDate(), room);
-          updateRoomBox();
-          seatsField.setText("");
+          adapter.removeRoom(temp);
         }
       }
         if (e.getSource() == examBox)
@@ -256,7 +229,7 @@ public class ChangeRoomTab extends Tab
       {
         Room temp = roomBox.getSelectionModel().getSelectedItem();
 
-        if(temp != null)
+        if(temp != null && !(temp.equals(newRoom)))
         {
           if(temp.isProjector())
           {
@@ -269,8 +242,9 @@ public class ChangeRoomTab extends Tab
         else if(temp.equals(newRoom))
         {
           seatsField.setText("");
-          roomNumberField.setText(temp.getNumber());
-          removeButton.isDisable(); //????????????????????????????????????????
+          roomNumberField.setText("");
+          roomNumberField.setEditable(true);
+          removeButton.setDisable(true);
         }
 
       }

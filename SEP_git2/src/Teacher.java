@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Teacher implements Serializable
 {
   private String name;
-  private ArrayList<MyDate>availability;
+  private ArrayList<MyDate>unavailability;
   private String contact;
 
   /**
@@ -21,7 +21,7 @@ public class Teacher implements Serializable
   {
     this.name=name;
     this.contact=contact;
-    availability=new ArrayList<MyDate>();
+    unavailability=new ArrayList<MyDate>();
   }
 
   /**
@@ -37,9 +37,9 @@ public class Teacher implements Serializable
    * Gets the teacher's availability.
    * @return the teacher's availability
    */
-  public ArrayList<MyDate> getAvailability()
+  public ArrayList<MyDate> getUnavailability()
   {
-    return availability;
+    return unavailability;
   }
 
   /**
@@ -62,11 +62,11 @@ public class Teacher implements Serializable
 
   /**
    * Sets the teacher's availability
-   * @param availability if the teacher is available in this time
+   * @param unavailability if the teacher is unavailable in this time
    */
-  public void setAvailability(ArrayList<MyDate> availability)
+  public void setUnavailability(ArrayList<MyDate> unavailability)
   {
-    this.availability = availability;
+    this.unavailability = unavailability;
   }
 
   /**
@@ -99,6 +99,6 @@ public class Teacher implements Serializable
       return false;
     }
     Teacher other=(Teacher) obj;
-    return name.equals(other.name) && contact.equals(other.contact) && availability.equals(other.availability);
+    return name.equals(other.name) && contact.equals(other.contact) && unavailability.equals(other.unavailability);
   }
 }

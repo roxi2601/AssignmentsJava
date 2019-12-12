@@ -65,6 +65,8 @@ public class MenageCourseDataTab extends Tab
   {
     super(title);
     this.adapter=adapter;
+    listener = new MyActionListener();
+    newCourse =  new Course("New",null,null,"",0);
 
     manegeCourseDataTab = new HBox(20);
 
@@ -72,9 +74,11 @@ public class MenageCourseDataTab extends Tab
 
     courseLabel = new Label("Course:");
     courseBox = new ComboBox<Course>();
+    courseBox.setOnAction(listener);
 
     courseNameLabel = new Label("Course name:");
     courseNameField = new TextField();
+    courseNameField.setEditable(false);
 
     teacherLabel = new Label("Teacher:");
     teacherBox = new ComboBox<Teacher>();
@@ -92,7 +96,9 @@ public class MenageCourseDataTab extends Tab
 
     addAndRemoveButtons = new HBox(20);
     addButton = new Button("Add");
+    addButton.setOnAction(listener);
     removeButton = new Button("Remove");
+    removeButton.setOnAction(listener);
     addAndRemoveButtons.getChildren().add(addButton);
     addAndRemoveButtons.getChildren().add(removeButton);
 
@@ -122,16 +128,6 @@ public class MenageCourseDataTab extends Tab
     super.setContent(manegeCourseDataTab);
   }
   /**
-   * Enables or disables editing of courseNameField and numberOfStudentsField.
-   * @param bool if true then the fields will be editable, if false then they will not
-   */
-  public void changeEditableState(boolean bool)
-  {
-    courseNameField.setEditable(bool);
-    numberOfStudentsField.setEditable(bool);
-  }
-
-  /**
    * Updates the courseBox ComboBox with information from the courses file
    */
   public void updateCourseBox()
@@ -139,7 +135,7 @@ public class MenageCourseDataTab extends Tab
     int currentIndex = courseBox.getSelectionModel().getSelectedIndex();
 
     courseBox.getItems().clear();
-
+    courseBox.getItems().add(newCourse);
     CourseList courses = adapter.getAllCourses();
     for (int i = 0; i < courses.size(); i++)
     {
@@ -169,40 +165,50 @@ public class MenageCourseDataTab extends Tab
       {
         Course temp = courseBox.getSelectionModel().getSelectedItem();
         String courseName = courseNameField.getText();
+        Teacher teacher = teacherBox.getSelectionModel().getSelectedItem();
+        Room room = roomBox.getSelectionModel().getSelectedItem();
+        String examType = typeBox.getSelectionModel().getSelectedItem();
         int numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
-
+        Course course = new Course(courseName,teacher,room,examType,numberOfStudents);
         if(temp.equals(newCourse))
         {
-          adapter.addObject(courseBox.getSelectionModel().getSelectedItem());
-          numberOfStudentsField.setEditable(true);
-          courseNameField.setEditable(true);
-          courseNameField.setText("");
-          numberOfStudentsField.setText("");
+          adapter.addCourse(course);
         }
         else
         {
-          adapter.changeCourse(courseBox.getSelectionModel().getSelectedItem());
-          numberOfStudentsField.setEditable(true);
-          courseNameField.setEditable(true);
+          adapter.changeCourse(temp, course);
         }
         updateCourseBox();
       }
       else if(e.getSource() == removeButton)
       {
         Course temp = courseBox.getSelectionModel().getSelectedItem();
-        String courseName = courseNameField.getText();
-        int numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
         if(temp.equals(newCourse))
         {
-          removeButton.isDisable(); //???
+          removeButton.setDisable(true);
         }
         else
         {
-          adapter.removeCourse(courseBox.getSelectionModel().getSelectedItem());
-          numberOfStudentsField.setEditable(true);
-          numberOfStudentsField.setEditable(true);
+          adapter.removeCourse(temp);
         }
-
+      }
+      else if(e.getSource()==courseBox)
+      {
+        Course temp = courseBox.getSelectionModel().getSelectedItem();
+        if(temp.equals(newCourse))
+        {
+          courseNameField.setEditable(true);
+          courseNameField.setText("");
+          numberOfStudentsField.setText("");
+        }
+        else
+        {
+          courseNameField.setText(temp.getName());
+          teacherBox.getSelectionModel().select(temp.getTeacher());
+          roomBox.getSelectionModel().select(temp.getRoom());
+          typeBox.getSelectionModel().select(temp.getExamType());
+          numberOfStudentsField.setText(temp.getNumberOfStudents()+"");
+        }
       }
     }
   }

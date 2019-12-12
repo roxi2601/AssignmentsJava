@@ -26,7 +26,18 @@ public class TeacherList implements Serializable
   {
     return teachers;
   }
-
+  public Teacher getTeacher(int index)
+  {
+    return teachers.get(index);
+  }
+  public void removeTeacher(int index)
+  {
+    teachers.remove(index);
+  }
+  public void addTeacher(Teacher teacher)
+  {
+    teachers.add(teacher);
+  }
   /**
    * Gets the size of the arrayList
    * @return the size of the arrayList

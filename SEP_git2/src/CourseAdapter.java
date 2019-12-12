@@ -3,38 +3,24 @@ import java.io.IOException;
 
 /**
  *  A class to handle input and output streams for Courses.
- * @author Prabhjot Singh
+ * @author Julia Tankiewicz
  * @version 1.0
  */
 public class CourseAdapter
 {
-  private MyFileIO fileIO;
+  private MyFileIO mfio;
   private String fileName;
 
   public CourseAdapter(){
-    fileIO = new MyFileIO();
-    fileName = "coursedata.bin";
+    mfio = new MyFileIO();
+    fileName = "courses.bin";
   }
-
-  public void addObject(Course obj){
-    try
-    {
-      fileIO.writeToFile(fileName, obj);
-    }
-    catch (FileNotFoundException e){
-      System.out.println("File not found");
-    }
-    catch (IOException e)
-    {
-      System.out.println("IO error writing to file");
-    }
-  }
-
-  public CourseList getAllCourses(){
+  public CourseList getAllCourses()
+  {
     CourseList courses = new CourseList();
     try
     {
-      courses = (CourseList) fileIO.readObjectFromFile(fileName);
+      courses = (CourseList) mfio.readObjectFromFile(fileName);
     }
     catch (IOException e)
     {
@@ -45,5 +31,51 @@ public class CourseAdapter
       e.printStackTrace();
     }
     return courses;
+  }
+  public  void saveCourses(CourseList courses)
+  {
+    try
+    {
+      mfio.writeToFile(fileName,courses);
+    }
+    catch (FileNotFoundException e)
+    {
+      System.out.println("File not found");
+    }
+    catch (IOException e)
+    {
+      System.out.println("IO Error writing to file");
+    }
+  }
+  public void addCourse(Course course)
+  {
+    CourseList courses = getAllCourses();
+    courses.addCourse(course);
+    saveCourses(courses);
+  }
+  public void removeCourse(Course course)
+  {
+    CourseList courses = getAllCourses();
+    for(int i = 0;i<courses.size();i++)
+    {
+      if(courses.getCourse(i).equals(course))
+      {
+        courses.removeCourse(i);
+      }
+    }
+    saveCourses(courses);
+  }
+  public void changeCourse(Course course, Course changedCourse)
+  {
+    CourseList courses = getAllCourses();
+    for(int i = 0;i<courses.size();i++)
+    {
+      if(courses.getCourse(i).equals(course))
+      {
+        courses.removeCourse(i);
+        courses.addCourse(changedCourse);
+      }
+    }
+    saveCourses(courses);
   }
 }

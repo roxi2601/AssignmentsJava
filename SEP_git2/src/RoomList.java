@@ -28,13 +28,16 @@ public class RoomList implements Serializable
   }
   /**
    * Removes a Room from the list.
-   * @param room the room to remove from the list
+   * @param index of the room to remove from the list
    */
-  public void removeRoom(Room room)
+  public void removeRoom(int index)
   {
-    rooms.remove(room);
+    rooms.remove(index);
   }
-
+  public Room getRoom(int index)
+  {
+    return rooms.get(index);
+  }
   /**
    * Gets all the rooms
    * @return all the rooms
@@ -64,7 +67,7 @@ public class RoomList implements Serializable
     {
       Room temp = rooms.get(i);
 
-      returnStr += temp +"\n";
+      returnStr += temp +", ";
     }
     return returnStr;
   }
