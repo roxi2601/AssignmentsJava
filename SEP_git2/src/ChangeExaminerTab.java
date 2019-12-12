@@ -56,6 +56,7 @@ public class ChangeExaminerTab extends Tab
   private MyActionListener listener;
 
   private TeacherAdapter adapter;
+  private ExamScheduleAdapter examScheduleAdapter;
 
   /**
    * Constructor initializing the GUI components
@@ -65,6 +66,7 @@ public class ChangeExaminerTab extends Tab
   {
     super(title);
     this.adapter = new TeacherAdapter();
+    this.examScheduleAdapter = new ExamScheduleAdapter();
 
     newExaminer = new Teacher("New","");
 
@@ -216,7 +218,7 @@ public class ChangeExaminerTab extends Tab
         {
           adapter.changeTeacher(temp,examiner);
         }
-
+        examScheduleAdapter.changeExaminer(examBox.getSelectionModel().getSelectedItem(),examiner);
       }
       else if (e.getSource() == removeButton)
       {

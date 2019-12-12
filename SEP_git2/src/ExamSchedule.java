@@ -96,16 +96,6 @@ public class ExamSchedule implements Serializable
     }
     return exams2;
   }
-
-  /**
-   * Edit exam.
-   * @param exam exam to edit
-   */
-  public void editExam(Exam exam)
-  {
-    //should it be in GUI adapter???
-  }
-
   /**
    * Adds an Exam to the exam schedule.
    * @param exam the exam to add to the exam schedule

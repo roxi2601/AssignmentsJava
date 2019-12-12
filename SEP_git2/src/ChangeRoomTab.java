@@ -53,6 +53,7 @@ public class ChangeRoomTab extends Tab
   private MyActionListener listener;
 
   private RoomAdapter adapter;
+  private ExamScheduleAdapter examScheduleAdapter;
 
   /**
    * Constructor initializing the GUI components
@@ -205,6 +206,7 @@ public class ChangeRoomTab extends Tab
         }
         updateRoomBox();
         roomField.setText(room.toString());
+        examScheduleAdapter.changeRoom(examBox.getSelectionModel().getSelectedItem(),room);
       }
       else if(e.getSource() == removeButton)
       {

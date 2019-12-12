@@ -91,8 +91,19 @@ public class ExamScheduleAdapter
     saveExamSchedule(exams);
   }
   public void changeExam(Exam exam, Exam changedExam)
-  {}
-  public void changeCourse(Course course,MyDate date, Room room)
+  {
+    ExamSchedule exams = getAllExams();
+    for(int i = 0;i<exams.size();i++)
+    {
+      if(exams.getExam(i).equals(exam))
+      {
+        exams.removeExam(exam);
+        exams.addExam(changedExam);
+      }
+    }
+    saveExamSchedule(exams);
+  }
+  /*public void changeCourse(Course course,MyDate date, Room room) // delete if it will not neccessary, im kinda too tired now to think haha
   {
     ExamSchedule exams = getAllExams();
 
@@ -104,7 +115,7 @@ public class ExamScheduleAdapter
       }
     }
     saveExamSchedule(exams);
-  }
+  }*/
   public void changeDate(Exam exam, MyDate date)
   {
     ExamSchedule exams = getAllExams();
@@ -122,40 +133,44 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
-  public void changeExaminer(Teacher examiner,MyDate date, Room room)
+  public void changeExaminer(Exam exam, Teacher changedExaminer)
   {
-    ExamSchedule exams = getAllExams();
-    boolean canBeReserved = true;
-    for(int j = 0;j<exams.size();j++)
+    ExamSchedule exams  =getAllExams();
+    boolean canBeChanged = true;
+    for(int i = 0;i<exams.size();i++)
     {
-      if(exams.getExam(j).getExaminer().equals(examiner)&& exams.getExam(j).getDate().equals(date))
+      if(exams.getExam(i).getDate().equals(exam.getDate())&& exams.getExam(i).getExaminer().equals(changedExaminer))
       {
-        canBeReserved = false;
+        canBeChanged=false;
       }
     }
-    for (int i = 0; i < exams.size(); i++)
+    if(changedExaminer.getUnavailability().contains(exam.getDate()))
     {
-      if(exams.getExam(i).getDate().equals(date) && exams.getExam(i).getRoom().equals(room));
+      canBeChanged=false;
+    }
+    for(int i = 0;i<exams.size();i++)
+    {
+      if(exams.getExam(i).equals(exam)&& canBeChanged)
       {
-        exams.getExam(i).setExaminer(examiner);
+        exams.getExam(i).setExaminer(changedExaminer);
       }
     }
     saveExamSchedule(exams);
   }
-  public void changeRoom(Course course,MyDate date, Room room)
+  public void changeRoom(Exam exam, Room room)
   {
-    boolean canBeReserved = true;
+    boolean canBeChanged = true;
     ExamSchedule exams = getAllExams();
     for(int j = 0;j<exams.size();j++)
     {
-      if(exams.getExam(j).getRoom().equals(room)&& exams.getExam(j).getDate().equals(date)&&course.getExamType().equals("Oral"))
+      if(exams.getExam(j).getRoom().equals(room) && exams.getExam(j).getDate().equals(exam.getDate()))
       {
-        canBeReserved = false;
+        canBeChanged = false;
       }
     }
     for (int i = 0; i < exams.size(); i++)
     {
-      if(exams.getExam(i).getDate().equals(date) && exams.getExam(i).getCourse().equals(course)&& canBeReserved);
+      if(exams.getExam(i).equals(exam)&&canBeChanged);
       {
         exams.getExam(i).reserveRoom(room);
       }

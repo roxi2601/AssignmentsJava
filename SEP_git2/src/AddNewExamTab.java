@@ -42,7 +42,7 @@ public class AddNewExamTab extends Tab
 
   private MyActionListener listener;
 
-  private ExamScheduleAdapter adapter;
+  private ExamScheduleAdapter examScheduleAdapter;
 
   /**
    * Constructor initializing the GUI components
@@ -51,7 +51,7 @@ public class AddNewExamTab extends Tab
   public AddNewExamTab(String title)
   {
     super(title);
-    this.adapter= new ExamScheduleAdapter();
+    this.examScheduleAdapter= new ExamScheduleAdapter();
 
     listener = new MyActionListener();
 
@@ -108,11 +108,13 @@ public class AddNewExamTab extends Tab
         int day = datePicker.getValue().getDayOfMonth();
         int month  = datePicker.getValue().getMonthValue();
         int year = datePicker.getValue().getYear();
+
         MyDate date = new MyDate(day,month,year);
         Course course = courseBox.getSelectionModel().getSelectedItem();
         Teacher examiner = examinerBox.getSelectionModel().getSelectedItem();
         Room room = roomBox.getSelectionModel().getSelectedItem();
-        adapter.addExam(course, examiner, room, date);
+
+        examScheduleAdapter.addExam(course, examiner, room, date);
       }
     }
   }
