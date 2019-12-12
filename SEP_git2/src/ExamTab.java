@@ -156,7 +156,6 @@ public class ExamTab extends Tab
     courseBox.getItems().clear();
     courseBox.getItems().add(allCourses);
     CourseList courses = coursesAdapter.getAllCourses();
-    courses.addCourse(allCourses);
     for (int i = 0; i < courses.size(); i++)
     {
       courseBox.getItems().add(courses.getAllCourses().get(i));

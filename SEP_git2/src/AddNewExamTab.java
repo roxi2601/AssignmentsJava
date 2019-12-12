@@ -43,6 +43,9 @@ public class AddNewExamTab extends Tab
   private MyActionListener listener;
 
   private ExamScheduleAdapter examScheduleAdapter;
+  private CourseAdapter courseAdapter;
+  private RoomAdapter roomAdapter;
+  private TeacherAdapter teacherAdapter;
 
   /**
    * Constructor initializing the GUI components
@@ -52,6 +55,9 @@ public class AddNewExamTab extends Tab
   {
     super(title);
     this.examScheduleAdapter= new ExamScheduleAdapter();
+    this.courseAdapter = new CourseAdapter();
+    this.roomAdapter = new RoomAdapter();
+    this.teacherAdapter = new TeacherAdapter();
 
     listener = new MyActionListener();
 
@@ -94,6 +100,65 @@ public class AddNewExamTab extends Tab
     super.setContent(addNewExamTab);
   }
 
+  public void updateCourseBox()
+  {
+    int currentIndex = courseBox.getSelectionModel().getSelectedIndex();
+    courseBox.getItems().clear();
+    CourseList courses = courseAdapter.getAllCourses();
+    for (int i = 0; i < courses.size(); i++)
+    {
+      courseBox.getItems().add(courses.getAllCourses().get(i));
+    }
+
+    if (currentIndex == -1 && courseBox.getItems().size() > 0)
+    {
+      courseBox.getSelectionModel().select(0);
+    }
+    else
+    {
+      courseBox.getSelectionModel().select(currentIndex);
+    }
+  }
+  public void updateRoomBox()
+  {
+    int currentIndex = roomBox.getSelectionModel().getSelectedIndex();
+
+    roomBox.getItems().clear();
+    RoomList rooms= roomAdapter.getAllRooms();
+    for (int i = 0; i < rooms.size(); i++)
+    {
+      roomBox.getItems().add(rooms.getRoom(i));
+    }
+
+    if (currentIndex == -1 && roomBox.getItems().size() > 0)
+    {
+      roomBox.getSelectionModel().select(0);
+    }
+    else
+    {
+      roomBox.getSelectionModel().select(currentIndex);
+    }
+  }
+  public void updateExaminerBox()
+  {
+    int currentIndex = examinerBox.getSelectionModel().getSelectedIndex();
+
+    examinerBox.getItems().clear();
+    TeacherList examiners= teacherAdapter.getAllTeachers();
+    for (int i = 0; i < examiners.size(); i++)
+    {
+      examinerBox.getItems().add(examiners.getTeacher(i));
+    }
+
+    if (currentIndex == -1 && examinerBox.getItems().size() > 0)
+    {
+      examinerBox.getSelectionModel().select(0);
+    }
+    else
+    {
+      examinerBox.getSelectionModel().select(currentIndex);
+    }
+  }
   /*
    * Inner action listener class
    * @author Roksana Dziadowicz

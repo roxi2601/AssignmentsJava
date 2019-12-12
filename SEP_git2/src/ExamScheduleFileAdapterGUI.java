@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -66,7 +67,33 @@ public class ExamScheduleFileAdapterGUI extends Application
     changeDateTab =new  ChangeDateTab("Change Date");
     addNewTab =new AddNewExamTab("Add new");
 
+    tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+    tabPane.getTabs().addAll(examsTab,changeCourseTab,changeExaminerTab,changeRoomTab,changeDateTab,addNewTab);
 
+    exitMenuItem = new MenuItem("Exit");
+    exitMenuItem.setOnAction(listener);
+
+    aboutMenuItem = new MenuItem("About");
+    aboutMenuItem.setOnAction(listener);
+
+    fileMenu = new Menu("File");
+    editMenu = new Menu("Edit");
+    aboutMenu = new Menu("About");
+
+    fileMenu.getItems().add(exitMenuItem);
+
+    aboutMenu.getItems().add(aboutMenuItem);
+
+    menuBar = new MenuBar();
+    menuBar.getMenus().addAll(fileMenu,editMenu,aboutMenu);
+
+    mainPane  = new VBox();
+    mainPane.getChildren().addAll(menuBar,tabPane);
+
+    Scene scene = new Scene(mainPane);
+
+    window.setScene(scene);
+    window.show();
   }
   /*
    * Inner action listener class
@@ -90,6 +117,14 @@ public class ExamScheduleFileAdapterGUI extends Application
           System.exit(0);
         }
       }
+      else if (e.getSource() == aboutMenuItem)
+      {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("About");
+        alert.setContentText("This is system to schedule exa period");
+        alert.showAndWait();
+      }
 
     }
   }
@@ -102,8 +137,34 @@ public class ExamScheduleFileAdapterGUI extends Application
   {
     public void changed(ObservableValue<? extends Tab> tab,Tab oldTab,Tab newTab)
     {
-      if(newTab.equals(examsTab))
+      if(newTab==examsTab)
       {
+        examsTab.updateCourseBox();
+        examsTab.updateExaminerBox();
+        examsTab.updateExamsTable();
+        examsTab.updateRoomBox();
+      }
+      else if(newTab==addNewTab)
+      {
+        addNewTab.updateCourseBox();
+        addNewTab.updateExaminerBox();
+        addNewTab.updateRoomBox();
+      }
+      else if(newTab==changeDateTab)
+      {
+        changeDateTab.updateExamBox();
+      }
+      else if(newTab==changeCourseTab)
+      {
+        changeCourseTab.updateCourseBox();
+      }
+      else if(newTab==changeExaminerTab)
+      {
+        changeExaminerTab.updateExaminerBox();
+      }
+      else if(newTab==changeRoomTab)
+      {
+        changeRoomTab.updateRoomBox();
       }
     }
   }
