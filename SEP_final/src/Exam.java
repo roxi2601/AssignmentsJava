@@ -150,7 +150,7 @@ public abstract class Exam implements Serializable
    */
   public String toString()
   {
-    return course+" "+examiner+" "+getType()+" "+date+" "+room; //???????????//
+    return course+" "+examiner+" "+date+" "+room+" "+getType();
   }
 
   /**

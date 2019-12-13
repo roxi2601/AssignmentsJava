@@ -75,12 +75,14 @@ public class ExamScheduleFileAdapterGUI extends Application
 
     aboutMenuItem = new MenuItem("About");
     aboutMenuItem.setOnAction(listener);
+    updateWebsiteMenuItem = new MenuItem("Update Website");
+    updateWebsiteMenuItem.setOnAction(listener);
 
     fileMenu = new Menu("File");
     editMenu = new Menu("Edit");
     aboutMenu = new Menu("About");
 
-    fileMenu.getItems().add(exitMenuItem);
+    fileMenu.getItems().addAll(exitMenuItem,updateWebsiteMenuItem);
 
     aboutMenu.getItems().add(aboutMenuItem);
 
@@ -117,12 +119,16 @@ public class ExamScheduleFileAdapterGUI extends Application
           System.exit(0);
         }
       }
+      else if(e.getSource()==updateWebsiteMenuItem)
+      {
+        adapter.generateXMLfile();
+      }
       else if (e.getSource() == aboutMenuItem)
       {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("About");
-        alert.setContentText("This is system to schedule exa period");
+        alert.setContentText("This is system to schedule exam period");
         alert.showAndWait();
       }
 

@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * A class containing ExamScheduleAdapter objects and methods
@@ -176,6 +178,35 @@ public class ExamScheduleAdapter
       }
     }
     saveExamSchedule(exams);
+  }
+  public void generateXMLfile()
+  {
+    ExamSchedule exams = getAllExams();
+    PrintWriter write = null;
+    try
+    {
+      FileOutputStream fileOut = new FileOutputStream("..//exams.xml");
+      write = new PrintWriter(fileOut);
+    }
+    catch (FileNotFoundException e)
+    {
+      System.out.println("File not found, or could not be opened");
+      System.exit(1);
+    }
+    write.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    write.println("<students>");
+    for(int i =0;i<exams.size();i++)
+    {
+      write.println("<exam>");
+      write.println("<course>"+exams.get(i).getCourse()+"</course>");
+      write.println("<examiner>"+exams.get(i).getExaminer()+"</examiner>");
+      write.println("<date>"+exams.get(i).getDate()+"</date>");
+      write.println("<room>"+exams.get(i).getRoom()+"</room>");
+      write.println("<type>"+exams.get(i).getType()+"</type>");
+      write.println("</exam>");
+    }
+    write.println("</students>");
+    write.close();
   }
 }
 
