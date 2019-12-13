@@ -2,11 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -167,7 +163,19 @@ public class MenageCourseDataTab extends Tab
         Teacher teacher = teacherBox.getSelectionModel().getSelectedItem();
         Room room = roomBox.getSelectionModel().getSelectedItem();
         String examType = typeBox.getSelectionModel().getSelectedItem();
-        int numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
+        int numberOfStudents=0;
+        if(numberOfStudentsField.getText().isEmpty() || numberOfStudentsField.getText().contains("[a-zA-Z]+")==true)
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setHeaderText(null);
+          alert.setTitle("Warning");
+          alert.setContentText("Number of students cannot contain letters or be empty, please type only number :)");
+          alert.showAndWait();
+        }
+        else
+        {
+          numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
+        }
         Course course = new Course(courseName,teacher,room,examType,numberOfStudents);
         if(temp.equals(newCourse))
         {
