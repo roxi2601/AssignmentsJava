@@ -206,7 +206,20 @@ public class ChangeExaminerTab extends Tab
       if (e.getSource() == addButton)
       {
         Teacher temp = examinerBox.getSelectionModel().getSelectedItem();
-        String name = nameField.getText();
+        String name="?";
+        if(nameField.getText().isEmpty() || nameField.getText().contains("[0-9]+")==true)
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setHeaderText(null);
+          alert.setTitle("Warning");
+          alert.setContentText("Name cannot contain numbers or be empty, please type only letters :)");
+          alert.showAndWait();
+        }
+        else
+        {
+          name = nameField.getText();
+        }
+
         String contact = examinerBox.getSelectionModel().getSelectedItem().getContact();
         Teacher examiner = new Teacher(name, contact);
         if (temp.equals(newExaminer))
@@ -219,6 +232,7 @@ public class ChangeExaminerTab extends Tab
           adapter.changeTeacher(temp,examiner);
         }
         examScheduleAdapter.changeExaminer(examBox.getSelectionModel().getSelectedItem(),examiner);
+
       }
       else if (e.getSource() == removeButton)
       {

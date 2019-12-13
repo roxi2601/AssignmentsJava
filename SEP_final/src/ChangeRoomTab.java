@@ -184,8 +184,29 @@ public class ChangeRoomTab extends Tab
       if(e.getSource() == addButton)
       {
         Room temp = roomBox.getSelectionModel().getSelectedItem();
-        int seats = Integer.parseInt(seatsField.getText());
-        String roomNumber = roomNumberField.getText();
+        int seats = 0;
+        String roomNumber = "?";
+        if(roomNumberField.getText().isEmpty())
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setHeaderText(null);
+          alert.setTitle("Warning");
+          alert.setContentText("Room number cannot be empty :)");
+          alert.showAndWait();
+        }
+        else if(seatsField.getText().isEmpty() || seatsField.getText().contains("[a-zA-Z]+")==true)
+        {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setHeaderText(null);
+          alert.setTitle("Warning");
+          alert.setContentText("Number of seats cannot contain letters or be empty, please type only numbers :)");
+          alert.showAndWait();
+        }
+        else
+        {
+          roomNumber = roomNumberField.getText();
+          seats = Integer.parseInt(seatsField.getText());
+        }
         Room room=new Room(roomNumber,seats);
         if(projectorBox.isSelected())
          {
