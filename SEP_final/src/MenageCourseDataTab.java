@@ -51,7 +51,6 @@ public class MenageCourseDataTab extends Tab
   private MyActionListener listener;
 
   private CourseAdapter adapter;
-
   /**
    * Constructor initializing the GUI components
    * @param title The title of the tab
