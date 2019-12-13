@@ -180,6 +180,7 @@ public class AddNewExamTab extends Tab
         Room room = roomBox.getSelectionModel().getSelectedItem();
 
         examScheduleAdapter.addExam(course, examiner, room, date);
+
       }
     }
   }
