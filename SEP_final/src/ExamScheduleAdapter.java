@@ -185,7 +185,7 @@ public class ExamScheduleAdapter
     PrintWriter write = null;
     try
     {
-      FileOutputStream fileOut = new FileOutputStream("..//exams.xml");
+      FileOutputStream fileOut = new FileOutputStream("../SEPWEB/exams.xml");
       write = new PrintWriter(fileOut);
     }
     catch (FileNotFoundException e)
