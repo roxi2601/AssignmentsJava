@@ -32,6 +32,9 @@ public class ChangeRoomTab extends Tab
   private Button addButton;
   private Button removeButton;
 
+  private CheckBox changeExamBox;
+
+
   private TextField courseField;
   private TextField examinerField;
   private TextField roomField;
@@ -133,8 +136,11 @@ public class ChangeRoomTab extends Tab
     removeButton = new Button("Remove");
     removeButton.setOnAction(listener);
 
+    changeExamBox = new CheckBox("Change in the exam");
+
     addAndRemoveButtons = new HBox(20);
     addAndRemoveButtons.getChildren().add(addButton);
+    addAndRemoveButtons.getChildren().add(changeExamBox);
     addAndRemoveButtons.getChildren().add(removeButton);
 
     roomPane.getChildren().add(roomBox);
@@ -226,8 +232,11 @@ public class ChangeRoomTab extends Tab
           adapter.changeRoom(temp, room);
         }
         updateRoomBox();
-        roomField.setText(room.toString());
-        examScheduleAdapter.changeRoom(examBox.getSelectionModel().getSelectedItem(),room);
+        if(changeExamBox.isSelected())
+        {
+          roomField.setText(room.toString());
+          examScheduleAdapter.changeRoom(examBox.getSelectionModel().getSelectedItem(), room);
+        }
       }
       else if(e.getSource() == removeButton)
       {

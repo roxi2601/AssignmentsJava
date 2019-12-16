@@ -32,6 +32,7 @@ public class ChangeExaminerTab extends Tab
 
   private Button addButton;
   private Button removeButton;
+  private CheckBox changeExamBox;
 
   private DatePicker datePicker;
 
@@ -140,15 +141,20 @@ public class ChangeExaminerTab extends Tab
     changeExaminerInputPane.addRow(3, unavailabilityLabel, unavailabilityField);
     changeExaminerInputPane.addRow(4, contactLabel, contactField);
 
-    addButton = new Button("Add");
+    addButton = new Button("Add/Change");
     addButton.setOnAction(listener);
 
     removeButton = new Button("Remove");
     removeButton.setOnAction(listener);
 
+    changeExamBox = new CheckBox("Change in the exam");
+    changeExamBox.setOnAction(listener);
+
     addAndRemoveButtons = new HBox(20);
     addAndRemoveButtons.getChildren().add(addButton);
+    addAndRemoveButtons.getChildren().add(changeExamBox);
     addAndRemoveButtons.getChildren().add(removeButton);
+
 
     examinerPane.getChildren().add(changeExaminerInputPane);
     examinerPane.getChildren().add(addAndRemoveButtons);
@@ -231,8 +237,11 @@ public class ChangeExaminerTab extends Tab
         {
           adapter.changeTeacher(temp,examiner);
         }
-        examScheduleAdapter.changeExaminer(examBox.getSelectionModel().getSelectedItem(),examiner);
-
+        if(changeExamBox.isSelected())
+        {
+          examScheduleAdapter.changeExaminer(examBox.getSelectionModel().getSelectedItem(), examiner);
+          examinerField.setText(examiner.toString());
+        }
       }
       else if (e.getSource() == removeButton)
       {
