@@ -13,7 +13,7 @@ public class CourseAdapter
 
   public CourseAdapter(){
     mfio = new MyFileIO();
-    fileName = "SEP_final/courses.bin";
+    fileName = "sep/courses.bin";
   }
   public CourseList getAllCourses()
   {
