@@ -1,3 +1,5 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -42,7 +44,7 @@ public class ChangeExaminerTab extends Tab
   private TextField roomField;
   private TextField dateField;
   private TextField nameField;
-  private TextField unavailabilityField;
+
   private TextField contactField;
 
   private Label courseLabel;
@@ -53,9 +55,12 @@ public class ChangeExaminerTab extends Tab
   private Label unavailabilityLabel;
   private Label contactLabel;
 
+  private ListView<MyDate> unavailabilityList;
+
   private Teacher newExaminer;
 
   private MyActionListener listener;
+  private MyListListener listenerList;
 
   private TeacherAdapter adapter;
   private ExamScheduleAdapter examScheduleAdapter;
@@ -127,8 +132,11 @@ public class ChangeExaminerTab extends Tab
 
     nameField = new TextField();
     nameField.setEditable(false);
-    unavailabilityField = new TextField();
-    unavailabilityField.setEditable(true);
+
+    unavailabilityList = new ListView<MyDate>();
+    unavailabilityList.setPrefHeight(100);
+    //unavailabilityList.getSelectionModel().selectedItemProperty().addListener(listenerList);
+
     contactField = new TextField();
     contactField.setEditable(true);
 
@@ -139,7 +147,7 @@ public class ChangeExaminerTab extends Tab
     changeExaminerInputPane.addRow(0, examinerBoxLabel, examinerBox);
     changeExaminerInputPane.addRow(1, nameLabel, nameField);
     changeExaminerInputPane.addRow(2,  datePicker);
-    changeExaminerInputPane.addRow(3, unavailabilityLabel, unavailabilityField);
+    changeExaminerInputPane.addRow(3, unavailabilityLabel, unavailabilityList);
     changeExaminerInputPane.addRow(4, contactLabel, contactField);
 
     addButton = new Button("Add/Change");
@@ -167,7 +175,10 @@ public class ChangeExaminerTab extends Tab
     super.setContent(changeExaminerPane);
   }
 
+  public void updateListView()
+  {
 
+  }
   public void updateExamBox()
   {
     int currentIndex = examBox.getSelectionModel().getSelectedIndex();
@@ -222,16 +233,6 @@ public class ChangeExaminerTab extends Tab
    */
   private class MyActionListener implements EventHandler<ActionEvent>
   {
-  ArrayList<MyDate> unavailability = new ArrayList<MyDate>();
-    public String getUnavailability()
-    {
-      String str = "";
-      for(int i= 0;i<unavailability.size();i++)
-      {
-        str+=unavailability.get(i)+", ";
-      }
-      return str;
-    }
     public void handle(ActionEvent e)
     {
       if (e.getSource() == addButton)
@@ -252,9 +253,10 @@ public class ChangeExaminerTab extends Tab
         }
         String contact = contactField.getText();
         Teacher examiner = new Teacher(name, contact);
+        ArrayList<MyDate> unavailable = (ArrayList<MyDate>)unavailabilityList.getItems();
+        examiner.setUnavailability(unavailable);
         if (temp.equals(newExaminer))
         {
-          //examiner.setUnavailability(unavailability);
           adapter.addTeacher(examiner);
         }
         else
@@ -271,7 +273,10 @@ public class ChangeExaminerTab extends Tab
       else if (e.getSource() == removeButton)
       {
         Teacher temp = examinerBox.getSelectionModel().getSelectedItem();
-        adapter.removeTeacher(temp);
+        if(temp!=null && !(temp.equals(newExaminer)))
+        {
+          adapter.removeTeacher(temp);
+        }
       }
       if (e.getSource() == examBox)
     {
@@ -285,23 +290,40 @@ public class ChangeExaminerTab extends Tab
       }
     }
     else if (e.getSource() == examinerBox)
-    {
-      Teacher temp = examinerBox.getSelectionModel().getSelectedItem();
+      {
+        Teacher temp = examinerBox.getSelectionModel().getSelectedItem();
 
-      if(temp!=null && !(temp.equals(newExaminer)))
-      {
-        nameField.setEditable(false);
-        nameField.setText(temp.getName());
-        unavailabilityField.setText(String.valueOf(temp.getUnavailability()));
-        contactField.setText(temp.getContact());
-      }
-      else if(temp.equals(newExaminer))
-      {
-        contactField.setText("");
-        unavailabilityField.setText("");
-        nameField.setText("");
-        nameField.setEditable(true);
-        removeButton.setDisable(true);
+        if (temp != null && !(temp.equals(newExaminer)))
+        {
+          nameField.setEditable(false);
+          nameField.setText(temp.getName());
+          contactField.setText(temp.getContact());
+
+          int currentIndex = unavailabilityList.getSelectionModel().getSelectedIndex();
+
+          unavailabilityList.getItems().clear();
+
+          for (int i = 0; i < temp.getUnavailability().size(); i++)
+          {
+            unavailabilityList.getItems().add(temp.getUnavailability().get(i));
+          }
+
+          if (currentIndex == -1 && unavailabilityList.getItems().size() > 0)
+          {
+            unavailabilityList.getSelectionModel().select(0);
+          }
+          else
+          {
+            unavailabilityList.getSelectionModel().select(currentIndex);
+          }
+        }
+        else if (temp!=null &&temp.equals(newExaminer))
+        {
+          contactField.setText("");
+          unavailabilityList.getItems().clear();
+          nameField.setText("");
+          nameField.setEditable(true);
+        }
       }
       else if(e.getSource()==datePicker)
       {
@@ -309,14 +331,22 @@ public class ChangeExaminerTab extends Tab
         int month = datePicker.getValue().getMonthValue();
         int year = datePicker.getValue().getYear();
 
-        Teacher teacher = examinerBox.getSelectionModel().getSelectedItem();
+        unavailabilityList.getItems().add(new MyDate(day, month, year));
 
-        if(teacher!=null)
-        {
-          teacher.getUnavailability().add(new MyDate(day, month, year));
-        }
-       }
+      }
     }
+    }
+
+  private class MyListListener implements ChangeListener<MyDate>
+  {
+    public void changed(ObservableValue<? extends MyDate> date, MyDate oldDate, MyDate newDate)
+    {
+      MyDate temp = unavailabilityList.getSelectionModel().getSelectedItem();
+
+      if (temp != null)
+      {
+       //unavailabilityList
+      }
     }
   }
 }

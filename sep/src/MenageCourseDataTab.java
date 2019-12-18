@@ -228,21 +228,19 @@ public class MenageCourseDataTab extends Tab
         if(newCourseCheckBox.isSelected())
         {
           adapter.addCourse(course);
-          System.out.println("ADDED");
         }
         else
         {
           adapter.changeCourse(temp, course);
         }
         updateCourseBox();
-        System.out.println("ADDED2");
       }
       else if(e.getSource() == removeButton)
       {
         Course temp = courseBox.getSelectionModel().getSelectedItem();
-        if(temp.equals(newCourse))
+        if(newCourseCheckBox.isSelected())
         {
-          removeButton.setDisable(true);
+        //  removeButton.setDisable(true);
         }
         else
         {
@@ -255,12 +253,11 @@ public class MenageCourseDataTab extends Tab
         System.out.println(temp);
         if(temp!=null)
         {
-          if (temp.equals(newCourse))
+          if (newCourseCheckBox.isSelected())
           {
             courseNameField.setEditable(true);
             courseNameField.setText("");
             numberOfStudentsField.setText("");
-            System.out.println("gsdkzksz");
           }
           else
           {

@@ -164,7 +164,6 @@ public class ChangeRoomTab extends Tab
     for (int i = 0; i < exams.size(); i++)
     {
       examBox.getItems().add(exams.get(i));
-      System.out.println("ppppppppppppp");
     }
 
     if (currentIndex == -1 && examBox.getItems().size() > 0)
@@ -300,7 +299,6 @@ public class ChangeRoomTab extends Tab
           seatsField.setText("");
           roomNumberField.setText("");
           roomNumberField.setEditable(true);
-          removeButton.setDisable(true);
         }
 
       }

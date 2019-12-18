@@ -238,17 +238,16 @@ public class ExamTab extends Tab
       {
         ExamSchedule temp = examsAdapter.getAllExams();
         for(int i = 0;i<temp.size();i++)
-        {//how to do it to display all exams when option "all" is chosen in combo boxes and
-          //how to make combo box to display "all" as first and default
+        {
           if(!(courseBox.getSelectionModel().getSelectedItem().equals(allCourses)) && !temp.get(i).getCourse().equals(courseBox.getSelectionModel().getSelectedItem()))
-          {// will this 'if' work?????
-            temp.removeExam(temp.get(i));
-          }
-          if(!(roomBox.getSelectionModel().getSelectedItem().equals(allRooms)) && !temp.get(i).getRoom().equals(roomBox.getSelectionModel().getSelectedItem()))
           {
             temp.removeExam(temp.get(i));
           }
-          if(!(examinerBox.getSelectionModel().getSelectedItem().equals(allTeachers)) && !temp.get(i).getExaminer().equals(examinerBox.getSelectionModel().getSelectedItem()))
+          if(roomBox.getSelectionModel().getSelectedItem()!=null&&!(roomBox.getSelectionModel().getSelectedItem().equals(allRooms)) && !temp.get(i).getRoom().equals(roomBox.getSelectionModel().getSelectedItem()))
+          {
+            temp.removeExam(temp.get(i));
+          }
+          if( examinerBox.getSelectionModel().getSelectedItem()!=null &&!(examinerBox.getSelectionModel().getSelectedItem().equals(allTeachers)) && !temp.get(i).getExaminer().equals(examinerBox.getSelectionModel().getSelectedItem()))
           {
             temp.removeExam(temp.get(i));
           }
