@@ -117,12 +117,13 @@ public class ChangeExaminerTab extends Tab
 
     //examiner data- start
     examinerPane = new VBox(20);
-    examinerPane.setPrefWidth(200);
+
 
     examinerBox = new ComboBox<Teacher>();
     examinerBox.setOnAction(listener);
 
     datePicker = new DatePicker();
+    datePicker.setOnAction(listener);
 
 
     nameLabel = new Label("Name:");
@@ -253,7 +254,11 @@ public class ChangeExaminerTab extends Tab
         }
         String contact = contactField.getText();
         Teacher examiner = new Teacher(name, contact);
-        ArrayList<MyDate> unavailable = (ArrayList<MyDate>)unavailabilityList.getItems();
+        ArrayList<MyDate> unavailable = new ArrayList<MyDate>();
+        for(int i = 0;i<unavailabilityList.getItems().size();i++)
+        {
+          unavailable.add(unavailabilityList.getItems().get(i));
+        }
         examiner.setUnavailability(unavailable);
         if (temp.equals(newExaminer))
         {

@@ -32,12 +32,9 @@ public class ExamScheduleFileAdapterGUI extends Application
   private MenuBar menuBar;
 
   private Menu fileMenu;
-  private Menu editMenu;
   private Menu aboutMenu;
 
   private MenuItem exitMenuItem;
-  private MenuItem newMenuItem;
-  private MenuItem saveMenuItem;
   private MenuItem updateWebsiteMenuItem;
   private MenuItem aboutMenuItem;
 
@@ -80,7 +77,6 @@ public class ExamScheduleFileAdapterGUI extends Application
     updateWebsiteMenuItem.setOnAction(listener);
 
     fileMenu = new Menu("File");
-    editMenu = new Menu("Edit");
     aboutMenu = new Menu("About");
 
     fileMenu.getItems().addAll(exitMenuItem,updateWebsiteMenuItem);
@@ -88,7 +84,7 @@ public class ExamScheduleFileAdapterGUI extends Application
     aboutMenu.getItems().add(aboutMenuItem);
 
     menuBar = new MenuBar();
-    menuBar.getMenus().addAll(fileMenu,editMenu,aboutMenu);
+    menuBar.getMenus().addAll(fileMenu,aboutMenu);
 
     mainPane  = new VBox();
     mainPane.getChildren().addAll(menuBar,tabPane);
@@ -148,7 +144,7 @@ public class ExamScheduleFileAdapterGUI extends Application
       {
         examsTab.updateCourseBox();
         examsTab.updateExaminerBox();
-        examsTab.updateExamsTable();
+        examsTab.updateExamsTable(adapter.getAllExams());
         examsTab.updateRoomBox();
         examsTab.updateExamBox();
       }

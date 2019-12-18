@@ -45,7 +45,6 @@ public class ExamTab extends Tab
   private Room allRooms;
   private Teacher allTeachers;
 
-  //If I will have time I will also add date picker to display exams only on picked date :)
 
   private MyActionListener listener;
 
@@ -129,17 +128,17 @@ public class ExamTab extends Tab
     examsPane = new HBox(20);
     examsPane.getChildren().addAll(examsTable,rightPane);
 
-    allCourses =  new Course("All",null,null,null,0);
-    allTeachers =  new Teacher("All",null);
+    allCourses =  new Course("All",new Teacher("all","all"),new Room("all",0),"all",0);
+    allTeachers =  new Teacher("All","all");
     allRooms =  new Room("All",0);
 
     super.setContent(examsPane);
 
   }
-  public void updateExamsTable()
+  public void updateExamsTable(ExamSchedule exams)
   {
     examsTable.getItems().clear();
-    ExamSchedule exams = examsAdapter.getAllExams();
+   // ExamSchedule exams = examsAdapter.getAllExams();
     for(int i = 0;i<exams.size();i++)
     {
       examsTable.getItems().add(exams.get(i));
@@ -151,12 +150,11 @@ public class ExamTab extends Tab
     int currentIndex = examBox.getSelectionModel().getSelectedIndex();
 
     examBox.getItems().clear();
-
     ExamSchedule exams = examsAdapter.getAllExams();
     System.out.println("Exams:" +exams.size());
     for (int i = 0; i < exams.size(); i++)
     {
-      examBox.getItems().add(exams.getAllExams().get(i));
+      examBox.getItems().add(exams.get(i));
     }
 
     if (currentIndex == -1 && examBox.getItems().size() > 0)
@@ -176,7 +174,7 @@ public class ExamTab extends Tab
     CourseList courses = coursesAdapter.getAllCourses();
     for (int i = 0; i < courses.size(); i++)
     {
-      courseBox.getItems().add(courses.getAllCourses().get(i));
+      courseBox.getItems().add(courses.getCourse(i));
     }
 
     if (currentIndex == -1 && courseBox.getItems().size() > 0)
@@ -239,7 +237,7 @@ public class ExamTab extends Tab
         ExamSchedule temp = examsAdapter.getAllExams();
         for(int i = 0;i<temp.size();i++)
         {
-          if(!(courseBox.getSelectionModel().getSelectedItem().equals(allCourses)) && !temp.get(i).getCourse().equals(courseBox.getSelectionModel().getSelectedItem()))
+          if(courseBox.getSelectionModel().getSelectedItem()!=null&& !(courseBox.getSelectionModel().getSelectedItem().equals(allCourses)) && !temp.get(i).getCourse().equals(courseBox.getSelectionModel().getSelectedItem()))
           {
             temp.removeExam(temp.get(i));
           }
@@ -251,17 +249,16 @@ public class ExamTab extends Tab
           {
             temp.removeExam(temp.get(i));
           }
-          if(oralButton.isSelected()&& temp.get(i).getType().equals("Written"))
+          if(temp!=null&& oralButton.isSelected()&& temp.get(i).getType().equals("Written"))
           {
             temp.removeExam(temp.get(i));
           }
-          if(writtenButton.isSelected()&& temp.get(i).getType().equals("Oral"))
+          if(temp!=null && writtenButton.isSelected()&&  temp.get(i).getType().equals("Oral"))
           {
             temp.removeExam(temp.get(i));
           }
         }
-        examsAdapter.saveExamSchedule(temp);
-        updateExamsTable();
+        updateExamsTable(temp);
       }
       else if(e.getSource()==removeButton)
       {
@@ -276,7 +273,7 @@ public class ExamTab extends Tab
             }
           }
           examsAdapter.saveExamSchedule(temp);
-          updateExamsTable();
+          updateExamsTable(temp);
         }
         else
         {

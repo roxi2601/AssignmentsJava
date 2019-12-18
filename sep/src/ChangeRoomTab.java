@@ -107,7 +107,6 @@ public class ChangeRoomTab extends Tab
 
     //room data- start
     roomPane = new VBox(20);
-    roomPane.setPrefWidth(200);
 
     roomBox = new ComboBox<Room>();
     roomBox.setOnAction(listener);
@@ -294,7 +293,7 @@ public class ChangeRoomTab extends Tab
           roomNumberField.setText(temp.getNumber());
 
         }
-        else if(temp.equals(newRoom))
+        else if(temp!=null&&temp.equals(newRoom))
         {
           seatsField.setText("");
           roomNumberField.setText("");
