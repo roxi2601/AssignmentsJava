@@ -98,7 +98,7 @@ public class ChangeDateTab extends Tab
     datePane.setPrefWidth(200);
 
     datePicker = new DatePicker();
-datePicker.setOnAction(listener);
+    datePicker.setOnAction(listener);
     datePickerLabel = new Label("Date:");
     dayLabel = new Label("Day:");
     monthLabel = new Label("Month:");
@@ -131,6 +131,10 @@ datePicker.setOnAction(listener);
 
     super.setContent(changeDatePane);
   }
+  /**
+   *method updates exam box
+   * @author Julia Tankiewicz
+   */
   public void updateExamBox()
     {
       int currentIndex = examBox.getSelectionModel().getSelectedIndex();
@@ -196,7 +200,6 @@ datePicker.setOnAction(listener);
       }
       else if (e.getSource() == datePicker)
       {
-        dayField.setText("sdfghj");
         dayField.setText(datePicker.getValue().getDayOfMonth()+"");
         monthField.setText(String.valueOf(datePicker.getValue().getMonthValue()));
         yearField.setText(String.valueOf(datePicker.getValue().getYear()));

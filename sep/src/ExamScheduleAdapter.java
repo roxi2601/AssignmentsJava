@@ -42,7 +42,10 @@ public class ExamScheduleAdapter
     }
     return examSchedule;
   }
-  //method saves the updated exam schedule and writes it to file
+  /**
+   *method saves the updated exam schedule and writes it to file
+   * @author Julia Tankiewicz
+   */
   public void saveExamSchedule(ExamSchedule exams)
   {
     try
@@ -58,6 +61,10 @@ public class ExamScheduleAdapter
       System.out.println("IO Error writing to file");
     }
   }
+  /**
+   *method adds new exam to external file with all exams
+   * @author Julia Tankiewicz
+   */
   public void addExam(Course course, Teacher examiner, Room room, MyDate date)
   {
     ExamSchedule exams = getAllExams();
@@ -80,6 +87,10 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
+  /**
+   *method removes exam from file which matches with one given as parameter
+   * @author Julia Tankiewicz
+   */
   public void removeExam(Exam exam)
   {
     ExamSchedule exams = getAllExams();
@@ -92,6 +103,10 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
+  /**
+   *method changes date of exam from file matching with one given as parameter
+   * @author Julia Tankiewicz
+   */
   public boolean changeDate(Exam exam, MyDate date)
   {
     ExamSchedule exams = getAllExams();
@@ -113,11 +128,14 @@ public class ExamScheduleAdapter
           exams.get(i).setDate(date);
         }
       }
-
     }
     saveExamSchedule(exams);
     return canBeReserved;
   }
+  /**
+   *method changes examiner for the exam from file matching with one given as parameter
+   * @author Julia Tankiewicz
+   */
   public void changeExaminer(Exam exam, Teacher changedExaminer)
   {
     ExamSchedule exams  =getAllExams();
@@ -142,6 +160,10 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
+  /**
+   *method changes room for the exam from file matching with one given as parameter
+   * @author Julia Tankiewicz
+   */
   public void changeRoom(Exam exam, Room room)
   {
     boolean canBeChanged = true;

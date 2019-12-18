@@ -5,12 +5,19 @@ public class TeacherAdapter
 {
   private  MyFileIO mfio;
   private String fileName;
-
+  /**
+   *constructor of teacher adapter object
+   * @author Julia Tankiewicz
+   */
   public TeacherAdapter()
   {
     mfio = new MyFileIO();
     this.fileName = "sep/teachers.bin";
   }
+  /**
+   *method saves teacher list given as parameter to external file
+   * @author Julia Tankiewicz
+   */
   public void saveTeachers(TeacherList teachers)
   {
     try
@@ -26,6 +33,10 @@ public class TeacherAdapter
       System.out.println("IO Error writing to file");
     }
   }
+  /**
+   *method returns all teachers from file
+   * @author Julia Tankiewicz
+   */
   public TeacherList getAllTeachers()
   {
     TeacherList teachers = new TeacherList();
@@ -47,12 +58,20 @@ public class TeacherAdapter
     }
     return teachers;
   }
+  /**
+   *method adds new teacher to file
+   * @author Julia Tankiewicz
+   */
   public void addTeacher(Teacher teacher)
   {
     TeacherList teachers = getAllTeachers();
     teachers.addTeacher(teacher);
     saveTeachers(teachers);
   }
+  /**
+   *method changes teacher from file matching with one given as parameter 'teacher' into 'changedTeacher' object
+   * @author Julia Tankiewicz
+   */
   public void changeTeacher(Teacher teacher,Teacher changedTeacher)
   {
     TeacherList teachers = getAllTeachers();
@@ -60,6 +79,9 @@ public class TeacherAdapter
     teachers.addTeacher(changedTeacher);
     saveTeachers(teachers);
   }
+  /**
+   *method removes teacher object from file
+   */
   public void removeTeacher(Teacher teacher)
   {
     TeacherList teachers = getAllTeachers();

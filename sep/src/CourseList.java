@@ -50,7 +50,10 @@ public class CourseList implements Serializable
   {
     return courses.size();
   }
-
+  /**
+   *method displays Course List object
+   * @author Julia Tankiewicz
+   */
   public String toString()
   {
     String returnStr = "";

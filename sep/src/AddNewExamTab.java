@@ -96,6 +96,10 @@ public class AddNewExamTab extends Tab
     super.setContent(addNewExamTab);
   }
 
+  /**
+   *method updates course box
+   * @author Julia Tankiewicz
+   */
   public void updateCourseBox()
   {
     int currentIndex = courseBox.getSelectionModel().getSelectedIndex();
@@ -115,6 +119,10 @@ public class AddNewExamTab extends Tab
       courseBox.getSelectionModel().select(currentIndex);
     }
   }
+  /**
+   *method updates room box
+   * @author Julia Tankiewicz
+   */
   public void updateRoomBox()
   {
     int currentIndex = roomBox.getSelectionModel().getSelectedIndex();
@@ -135,6 +143,10 @@ public class AddNewExamTab extends Tab
       roomBox.getSelectionModel().select(currentIndex);
     }
   }
+  /**
+   *method updates examiner box
+   * @author Julia Tankiewicz
+   */
   public void updateExaminerBox()
   {
     int currentIndex = examinerBox.getSelectionModel().getSelectedIndex();

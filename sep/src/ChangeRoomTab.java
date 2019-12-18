@@ -153,6 +153,10 @@ public class ChangeRoomTab extends Tab
     super.setContent(changeRoomPane);
 
   }
+  /**
+   *method updates exam box
+   * @author Julia Tankiewicz
+   */
   public void updateExamBox()
   {
     int currentIndex = examBox.getSelectionModel().getSelectedIndex();

@@ -245,11 +245,7 @@ public class MenageCourseDataTab extends Tab
       else if(e.getSource() == removeButton)
       {
         Course temp = courseBox.getSelectionModel().getSelectedItem();
-        if(newCourseCheckBox.isSelected())
-        {
-        //  removeButton.setDisable(true);
-        }
-        else
+        if(!newCourseCheckBox.isSelected())
         {
           adapter.removeCourse(temp);
         }

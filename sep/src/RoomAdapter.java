@@ -10,12 +10,19 @@ public class RoomAdapter//Can it be like that or should it be more like in Teach
 {
   private MyFileIO mfio;
   private String fileName;
-
-  public RoomAdapter(){
+  /**
+   * constructor Room adapter has methods for managing rooms data
+   * @author Julia Tankiewicz
+   */
+  public RoomAdapter()
+  {
     fileName = "sep/rooms.bin";
     mfio = new MyFileIO();
   }
-
+  /**
+   *method update course box
+   * @author Julia Tankiewicz
+   */
   public RoomList getAllRooms()
   {
     RoomList rooms = new RoomList();
@@ -33,6 +40,10 @@ public class RoomAdapter//Can it be like that or should it be more like in Teach
     }
     return rooms;
   }
+  /**
+   *method saves rooms given as parameter to external file
+   * @author Julia Tankiewicz
+   */
   public void saveRooms(RoomList rooms)
   {
     try
@@ -48,12 +59,20 @@ public class RoomAdapter//Can it be like that or should it be more like in Teach
       System.out.println("IO Error writing to file");
     }
   }
+  /**
+   *method adds new room to rooms binary file
+   * @author Julia Tankiewicz
+   */
   public void addRoom(Room room)
   {
     RoomList rooms = getAllRooms();
       rooms.addRoom(room);
       saveRooms(rooms);
   }
+  /**
+   *method removes existing room from file
+   * @author Julia Tankiewicz
+   */
   public void removeRoom(Room room)
   {
     RoomList rooms = getAllRooms();
@@ -66,6 +85,10 @@ public class RoomAdapter//Can it be like that or should it be more like in Teach
     }
     saveRooms(rooms);
   }
+  /**
+   *method changes room from file matching with one given as parameter 'room' into 'changedRoom' object
+   * @author Julia Tankiewicz
+   */
   public void changeRoom(Room room, Room changedRoom)
   {
     RoomList rooms = getAllRooms();

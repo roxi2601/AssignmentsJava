@@ -60,7 +60,6 @@ public class ChangeExaminerTab extends Tab
   private Teacher newExaminer;
 
   private MyActionListener listener;
-  private MyListListener listenerList;
 
   private TeacherAdapter adapter;
   private ExamScheduleAdapter examScheduleAdapter;
@@ -175,11 +174,10 @@ public class ChangeExaminerTab extends Tab
 
     super.setContent(changeExaminerPane);
   }
-
-  public void updateListView()
-  {
-
-  }
+  /**
+   *method updates exam box
+   * @author Julia Tankiewicz
+   */
   public void updateExamBox()
   {
     int currentIndex = examBox.getSelectionModel().getSelectedIndex();
@@ -187,7 +185,6 @@ public class ChangeExaminerTab extends Tab
     examBox.getItems().clear();
     ExamSchedule exams = examScheduleAdapter.getAllExams();
 
-    System.out.println("Exams:" +exams.size());
     for (int i = 0; i < exams.size(); i++)
     {
       examBox.getItems().add(exams.get(i));
@@ -240,7 +237,7 @@ public class ChangeExaminerTab extends Tab
       {
         Teacher temp = examinerBox.getSelectionModel().getSelectedItem();
         String name="?";
-        if(nameField.getText().isEmpty() || nameField.getText().contains("[0-9]+")==true)
+        if(nameField.getText().isEmpty())
         {
           Alert alert = new Alert(Alert.AlertType.WARNING);
           alert.setHeaderText(null);
@@ -341,17 +338,4 @@ public class ChangeExaminerTab extends Tab
       }
     }
     }
-
-  private class MyListListener implements ChangeListener<MyDate>
-  {
-    public void changed(ObservableValue<? extends MyDate> date, MyDate oldDate, MyDate newDate)
-    {
-      MyDate temp = unavailabilityList.getSelectionModel().getSelectedItem();
-
-      if (temp != null)
-      {
-       //unavailabilityList
-      }
-    }
-  }
 }

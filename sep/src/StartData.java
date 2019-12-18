@@ -1,15 +1,13 @@
 import java.util.ArrayList;
-
+/**
+ *class adds first objects to files and creates first exam
+ * @author Julia Tankiewicz
+ */
 public class StartData
   {
     public static void main(String[] args)
     {
       Teacher teacher = new Teacher("Allan","alhe@via.dk");
-     /* ArrayList<MyDate> unavailable = new ArrayList<>();
-      unavailable.add(new MyDate(10,10,10));
-      unavailable.add(new MyDate(11,10,10));
-      unavailable.add(new MyDate(12,10,10));
-      teacher.setUnavailability(unavailable);*/
       Room room = new Room("E.101a",0);
       MyDate md = new MyDate(0,0,0);
       Course course=new Course("SDJ1X",teacher, room,"Oral",0);
@@ -17,7 +15,6 @@ public class StartData
 
       TeacherList tl = new TeacherList();
       tl.addTeacher(teacher);
-
       RoomList rl = new RoomList();
       rl.addRoom(room);
       ExamSchedule es = new ExamSchedule();
@@ -36,7 +33,7 @@ public class StartData
       }
       catch (Exception e)
       {
-
+        System.out.println("Writing to file went wrong");
       }
 
     }

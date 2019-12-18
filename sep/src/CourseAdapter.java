@@ -33,6 +33,10 @@ public class CourseAdapter
     }
     return courses;
   }
+  /**
+   *method saves courses given in parameters to external file
+   * @author Julia Tankiewicz
+   */
   public  void saveCourses(CourseList courses)
   {
     try
@@ -48,12 +52,20 @@ public class CourseAdapter
       System.out.println("IO Error writing to file");
     }
   }
+  /**
+   *method adds new course to file
+   * @author Julia Tankiewicz
+   */
   public void addCourse(Course course)
   {
     CourseList courses = getAllCourses();
     courses.addCourse(course);
     saveCourses(courses);
   }
+  /**
+   *method removes existing course from file
+   * @author Julia Tankiewicz
+   */
   public void removeCourse(Course course)
   {
     CourseList courses = getAllCourses();
@@ -66,6 +78,10 @@ public class CourseAdapter
     }
     saveCourses(courses);
   }
+  /**
+   *method changes course from file matching with one given as parameter into changed course also given as parameter
+   * @author Julia Tankiewicz
+   */
   public void changeCourse(Course course, Course changedCourse)
   {
     CourseList courses = getAllCourses();

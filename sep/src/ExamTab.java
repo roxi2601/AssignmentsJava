@@ -52,7 +52,10 @@ public class ExamTab extends Tab
   private CourseAdapter coursesAdapter;
   private RoomAdapter roomAdapter;
   private TeacherAdapter teachersAdapter;
-
+  /**
+   *constructor creating Exam tab object
+   * @author Julia Tankiewicz
+   */
   public ExamTab(String title)
   {
    super(title);
@@ -135,16 +138,22 @@ public class ExamTab extends Tab
     super.setContent(examsPane);
 
   }
+  /**
+   *method updates exams table displaying exams given as parameter
+   * @author Julia Tankiewicz
+   */
   public void updateExamsTable(ExamSchedule exams)
   {
     examsTable.getItems().clear();
-   // ExamSchedule exams = examsAdapter.getAllExams();
     for(int i = 0;i<exams.size();i++)
     {
       examsTable.getItems().add(exams.get(i));
     }
   }
-
+  /**
+   *method updates exam box
+   * @author Julia Tankiewicz
+   */
   public void updateExamBox()
   {
     int currentIndex = examBox.getSelectionModel().getSelectedIndex();
@@ -166,6 +175,10 @@ public class ExamTab extends Tab
       examBox.getSelectionModel().select(currentIndex);
     }
   }
+  /**
+   *method update course box
+   * @author Julia Tankiewicz
+   */
   public void updateCourseBox()
   {
     int currentIndex = courseBox.getSelectionModel().getSelectedIndex();
@@ -186,6 +199,10 @@ public class ExamTab extends Tab
       courseBox.getSelectionModel().select(currentIndex);
     }
   }
+  /**
+   *method update room box
+   * @author Julia Tankiewicz
+   */
   public void updateRoomBox()
   {
     int currentIndex = roomBox.getSelectionModel().getSelectedIndex();
@@ -207,6 +224,10 @@ public class ExamTab extends Tab
       roomBox.getSelectionModel().select(currentIndex);
     }
   }
+  /**
+   *method update examiner box
+   * @author Julia Tankiewicz
+   */
   public void updateExaminerBox()
   {
     int currentIndex = examinerBox.getSelectionModel().getSelectedIndex();
@@ -228,6 +249,11 @@ public class ExamTab extends Tab
       examinerBox.getSelectionModel().select(currentIndex);
     }
   }
+
+  /**
+   * private class listener gives functionality to buttons
+   * @author Julia Tankiewicz
+   */
   private class MyActionListener implements EventHandler<ActionEvent>
   {
     public void handle(ActionEvent e)

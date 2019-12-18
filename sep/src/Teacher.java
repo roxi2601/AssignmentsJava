@@ -100,7 +100,6 @@ public class Teacher implements Serializable
     }
     Teacher other=(Teacher) obj;
 
-
     if(contact!= null && unavailability!=null)
     {
       return name.equals(other.name) && contact.equals(other.contact) && unavailability.equals(other.unavailability);
