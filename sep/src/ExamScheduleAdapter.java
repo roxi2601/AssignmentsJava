@@ -92,32 +92,6 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
-  public void changeExam(Exam exam, Exam changedExam)
-  {
-    ExamSchedule exams = getAllExams();
-    for(int i = 0;i<exams.size();i++)
-    {
-      if(exams.getExam(i).equals(exam))
-      {
-        exams.removeExam(exam);
-        exams.addExam(changedExam);
-      }
-    }
-    saveExamSchedule(exams);
-  }
-  /*public void changeCourse(Course course,MyDate date, Room room) // delete if it will not neccessary, im kinda too tired now to think haha
-  {
-    ExamSchedule exams = getAllExams();
-
-    for (int i = 0; i < exams.size(); i++)
-    {
-      if(exams.getExam(i).getDate().equals(date) && exams.getExam(i).getRoom().equals(room));
-      {
-        exams.getExam(i).setCourse(course);
-      }
-    }
-    saveExamSchedule(exams);
-  }*/
   public boolean changeDate(Exam exam, MyDate date)
   {
     ExamSchedule exams = getAllExams();
@@ -188,6 +162,10 @@ public class ExamScheduleAdapter
     }
     saveExamSchedule(exams);
   }
+
+  /**
+   * method generates xml file and saves it in proper place
+   */
   public void generateXMLfile()
   {
     ExamSchedule exams = getAllExams();

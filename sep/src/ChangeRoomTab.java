@@ -210,16 +210,18 @@ public class ChangeRoomTab extends Tab
       {
         Room temp = roomBox.getSelectionModel().getSelectedItem();
         int seats = 0;
-        String roomNumber = "?";
-        if(roomNumberField.getText().isEmpty())
+        String roomNumber = roomNumberField.getText();
+        boolean hasLetters = false;
+        try
         {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setHeaderText(null);
-          alert.setTitle("Warning");
-          alert.setContentText("Room number cannot be empty :)");
-          alert.showAndWait();
+
+          seats = Integer.parseInt(seatsField.getText());
         }
-        else if(seatsField.getText().isEmpty() || seatsField.getText().contains("[a-zA-Z]+")==true)
+        catch (Exception ex)
+        {
+          hasLetters= true;
+        }
+        if(seatsField.getText().isEmpty() || hasLetters)
         {
           Alert alert = new Alert(Alert.AlertType.WARNING);
           alert.setHeaderText(null);
@@ -227,11 +229,7 @@ public class ChangeRoomTab extends Tab
           alert.setContentText("Number of seats cannot contain letters or be empty, please type only numbers :)");
           alert.showAndWait();
         }
-        else
-        {
-          roomNumber = roomNumberField.getText();
-          seats = Integer.parseInt(seatsField.getText());
-        }
+
         Room room=new Room(roomNumber,seats);
         if(projectorBox.isSelected())
          {

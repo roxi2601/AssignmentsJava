@@ -9,6 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.regex.Pattern;
+
 /**
  * A GUI tab containing components for changing course.
  * @author Roksana Dziadowicz
@@ -212,18 +214,23 @@ public class MenageCourseDataTab extends Tab
         Room room = roomBox.getSelectionModel().getSelectedItem();
         String examType = typeBox.getSelectionModel().getSelectedItem();
         int numberOfStudents=0;
-        if(numberOfStudentsField.getText().isEmpty() || numberOfStudentsField.getText().contains("[a-zA-Z]+")==true)
-        {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setHeaderText(null);
-          alert.setTitle("Warning");
-          alert.setContentText("Number of students cannot contain letters or be empty, please type only number :)");
-          alert.showAndWait();
-        }
-        else
-        {
-          numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
-        }
+        boolean hasLetters= false;
+          try
+          {
+            numberOfStudents = Integer.parseInt(numberOfStudentsField.getText());
+          }
+          catch (Exception ex)
+          {
+            hasLetters = true;
+          }
+        if(numberOfStudentsField.getText().isEmpty() || hasLetters)
+      {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setTitle("Warning");
+        alert.setContentText("Number of students cannot contain letters or be empty, please type only number :)");
+        alert.showAndWait();
+      }
         Course course = new Course(courseName,teacher,room,examType,numberOfStudents);
         if(newCourseCheckBox.isSelected())
         {
