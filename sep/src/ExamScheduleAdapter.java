@@ -16,7 +16,7 @@ public class ExamScheduleAdapter
   public ExamScheduleAdapter()
   {
     mfio = new MyFileIO();
-    this.fileName = "sep/exams.bin";
+    this.fileName = "sepfinal/exams.bin";
   }
 
   // Use the MyFileIO class to retrieve a CourseList object with all Students
@@ -184,7 +184,7 @@ public class ExamScheduleAdapter
     PrintWriter write = null;
     try
     {
-      FileOutputStream fileOut = new FileOutputStream("C:\\Users\\HUAWEI\\Desktop\\SEP1 final\\source code\\SEBWEB");
+      FileOutputStream fileOut = new FileOutputStream("C:/Users/HUAWEI/Desktop/SEP1 final/source code/SEBWEB/exams.xml");
       write = new PrintWriter(fileOut);
     }
     catch (FileNotFoundException e)
