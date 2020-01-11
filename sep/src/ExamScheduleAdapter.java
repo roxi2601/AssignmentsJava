@@ -27,18 +27,8 @@ public class ExamScheduleAdapter
     try
     {
       examSchedule = (ExamSchedule)mfio.readObjectFromFile(fileName);
-    }
-    catch (FileNotFoundException e)
-    {
-      System.out.println("File not found");
-    }
-    catch (IOException e)
-    {
-      System.out.println("IO Error reading file");
-    }
-    catch (ClassNotFoundException e)
-    {
-      System.out.println("Class Not Found");
+    }catch(Exception e){
+      System.out.println("Exception: " + e);
     }
     return examSchedule;
   }
@@ -54,7 +44,7 @@ public class ExamScheduleAdapter
     }
     catch (FileNotFoundException e)
     {
-      System.out.println("File not found");
+      System.out.println("File not found" + e);
     }
     catch (IOException e)
     {
@@ -194,7 +184,7 @@ public class ExamScheduleAdapter
     PrintWriter write = null;
     try
     {
-      FileOutputStream fileOut = new FileOutputStream("C:/Users/tanki/OneDrive/Pulpit/SEPWEB/exams.xml");
+      FileOutputStream fileOut = new FileOutputStream("C:\\Users\\HUAWEI\\Desktop\\SEP1 final\\source code\\SEBWEB");
       write = new PrintWriter(fileOut);
     }
     catch (FileNotFoundException e)

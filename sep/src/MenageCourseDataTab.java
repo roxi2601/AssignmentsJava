@@ -4,10 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.util.regex.Pattern;
 
@@ -71,6 +68,9 @@ public class MenageCourseDataTab extends Tab
     manegeCourseDataTab = new HBox(20);
 
     allCourseData = new VBox(20);
+    allCourseData.setPrefWidth(400);
+    allCourseData.setMinWidth(400);
+    allCourseData.setMaxWidth(1000);
 
     courseLabel = new Label("Course:");
     courseBox = new ComboBox<Course>();
