@@ -16,7 +16,7 @@ public class ExamScheduleAdapter
   public ExamScheduleAdapter()
   {
     mfio = new MyFileIO();
-    this.fileName = "sepfinal/exams.bin";
+    this.fileName = "sep/exams.bin";
   }
 
   // Use the MyFileIO class to retrieve a CourseList object with all Students
