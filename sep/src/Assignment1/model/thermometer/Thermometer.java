@@ -1,6 +1,6 @@
 package Assignment1.model.thermometer;
 
-public class Thermometer implements Runnable
+public class Thermometer
 {
     private String id;
     private double t;
@@ -28,21 +28,6 @@ public class Thermometer implements Runnable
         return t;
     }
 
-    @Override public void run()
-    {
-   /* while(true)
-    {
-      this.t = temperature(t, p(?), d, 0, 6);
-      System.out.println("current temperature: "+ t +" thermometer: "+ id);
-      try
-      {
-        Thread.sleep(6000);
-      }
-      catch (InterruptedException e)
-      {
-      }
-    }*/
-    }
 }
 
 

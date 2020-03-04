@@ -23,13 +23,13 @@ public class TemperatureModel implements Model
         thermometer2 = new Thermometer(7,"t2",temperature2);
     }
 
-    public double calcTemp1(int radiatorPower)
+    private double calcTemp1(int radiatorPower)
     {
         double temp = thermometer1.temperature(temperature1,radiatorPower,1,0,3);
         temperature1 = temp;
         return temp;
     }
-    public double calcTemp2(int radiatorPower)
+    private double calcTemp2(int radiatorPower)
     {
         double temp = thermometer2.temperature(temperature2,radiatorPower,7,0,3);
         temperature2 = temp;

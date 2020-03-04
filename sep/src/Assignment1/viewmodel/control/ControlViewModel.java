@@ -1,5 +1,6 @@
 package Assignment1.viewmodel.control;
 
+import Assignment1.model.radiator.RadiatorState;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,27 +10,23 @@ import Assignment1.mediator.TemperatureModel;
 public class ControlViewModel {
 
     private StringProperty state;
-    private StringProperty hotOrCold;
+
     public ControlViewModel(TemperatureModel model) {
 
         state = new SimpleStringProperty();
-        hotOrCold=new SimpleStringProperty();
-        model.addListener("Temperatures", );
+        model.addListener("Temperatures",this:: );
     }
-
     public StringProperty stateProperty() {
         return state;
     }
 
-    public void turnUpButton() {
-
-    }
-
-    public void turnDownButton() {
-
-    }
-    public int getRadiatorState()
+    public RadiatorState getRadiatorState(TemperatureModel model)
     {
-        return radiatorState.get();
+        model.getTemperatureValues(HERE WE NEED INT RADIATOR STATE);
+
+    }
+    public void turnUpButton() {
+    }
+    public void turnDownButton() {
     }
 }
