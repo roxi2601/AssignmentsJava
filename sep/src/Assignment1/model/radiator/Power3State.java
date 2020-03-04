@@ -1,7 +1,7 @@
 package Assignment1.model.radiator;
 
 public class Power3State implements RadiatorState {
-    private static final int POWER=3;
+
     private Thread thread;
     public Power3State(Radiator radiator)
     {
