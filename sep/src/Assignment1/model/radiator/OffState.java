@@ -4,6 +4,7 @@ public class OffState implements RadiatorState{
 
     @Override
     public void turnUp(Radiator radiator) {
+        System.out.println("its turning 0->1");
         radiator.setPowerState(new Power1State());
     }
     @Override

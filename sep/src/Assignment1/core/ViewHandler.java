@@ -10,20 +10,17 @@ import java.io.IOException;
 
 public class ViewHandler
 {
-    private ControlViewController temperatureViewController;
-    private DisplayViewController displayViewController;
-    private ViewModelFactory model;
-    private Scene controllerScene;
-    private Scene displayScene;
-    private Stage stage;
-    public ViewHandler(ViewModelFactory model)
+
+   private ViewModelFactory vmf;
+
+    public ViewHandler(ViewModelFactory vmf)
     {
-        this.model = model;
+        this.vmf = vmf;
     }
     public void start() throws Exception
     {
         openView("Radiator Controller");
-        openView("Display");
+       // openView("Display");
 
     }
     public void openView(String viewToOpen) throws IOException
@@ -34,17 +31,17 @@ public class ViewHandler
         Stage tmpStage = new Stage();
         if("Radiator Controller".equals(viewToOpen))
         {
-            loader.setLocation(getClass().getResource("../Assignment1/view/control/control.fxml"));
+            loader.setLocation(getClass().getResource("../view/control/control.fxml"));
             root = loader.load();
             ControlViewController view = loader.getController();
-            view.init(model.getControlViewModel());
+            view.init(vmf.getControlViewModel());
             tmpStage.setTitle("Radiator Controller");
         }
         else if ("Display".equals(viewToOpen)) {
-            loader.setLocation(getClass().getResource("../Assignment1/view/display/display.fxml"));
+            loader.setLocation(getClass().getResource("../view/display/display.fxml"));
             root = loader.load();
             DisplayViewController view = loader.getController();
-            view.init(model.getDisplayViewModel());
+            view.init(vmf.getDisplayViewModel());
             tmpStage.setTitle("Display");
         }
 
