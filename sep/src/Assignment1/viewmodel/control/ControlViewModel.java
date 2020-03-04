@@ -23,7 +23,6 @@ public class ControlViewModel {
     public RadiatorState getRadiatorState(TemperatureModel model)
     {
         model.getTemperatureValues(HERE WE NEED INT RADIATOR STATE);
-
     }
     public void turnUpButton() {
     }
