@@ -27,7 +27,7 @@ public class Radiator {
     public void setPowerState(RadiatorState state) {
         RadiatorState oldState = currentState;
         this.currentState = state;
-        support.firePropertyChange("state",oldState,currentState);
+        support.firePropertyChange("currentState",oldState,currentState);
     }
     public void addListener(PropertyChangeListener listener)
     {

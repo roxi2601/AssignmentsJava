@@ -20,10 +20,13 @@ public class TemperatureApp extends Application
             TemperatureModel model = (TemperatureModel)mf.getModel();
             while(true)
             {
-                model.calcTemp1();
-                model.warning();
-                model.calcTemp2();
-                model.warning();
+               double temp1 =  model.calcTemp1();
+                String wrg= model.warning();
+                System.out.println("temp1: "+temp1+"  "+wrg);
+
+                double temp2 =model.calcTemp2();
+
+                System.out.println("temp2: "+temp2+"  "+wrg);
                 try
                 {
                     Thread.sleep(3000);
