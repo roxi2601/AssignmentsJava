@@ -31,7 +31,7 @@ public class TemperatureModel implements Model
         support =  new PropertyChangeSupport(this);
 
         radiator = new Radiator(support);
-        radiator.addListener(evt->updateState());
+       // radiator.addListener(evt->updateState());
     }
 
     public double calcTemp1()
@@ -65,6 +65,7 @@ public class TemperatureModel implements Model
     public void updateState()
     {
         int pwr =  radiator.getPower();
+
     }
     public String warning()
     {
