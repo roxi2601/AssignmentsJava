@@ -31,7 +31,6 @@ public class TemperatureModel implements Model
         support =  new PropertyChangeSupport(this);
 
         radiator = new Radiator(support);
-       // radiator.addListener(evt->updateState());
     }
 
     public double calcTemp1()
@@ -69,16 +68,19 @@ public class TemperatureModel implements Model
     }
     public String warning()
     {
-        String warning = "";
+        String warning = " ";
         if(calcTemp1() > 30 || calcTemp2()>30)
         {
             warning ="Temperature in the room is too high";
         }
         else if(calcTemp2()<10 || calcTemp1()<10)
         {
-            warning = "Temperature in the room is to low";
+            warning = "Temperature in the room is too low";
         }
-         return warning;
+
+        support.firePropertyChange("warning"," ",warning);
+        return warning;
+
     }
 
 

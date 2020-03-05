@@ -37,9 +37,7 @@ public class ControlViewModel {
             int pwr = model.getRadiatorPower();
             state.setValue(pwr+"");
         });
-
     }
-
     public int getRadiatorPower()
     {
         return model.getRadiatorPower();

@@ -9,6 +9,7 @@ import Assignment1.viewmodel.display.DisplayViewModel;
 public class DisplayViewController {
     @FXML
     Label HotOrCold;
+
     private DisplayViewModel displayViewModel;
     private ViewHandler viewHandler;
 
