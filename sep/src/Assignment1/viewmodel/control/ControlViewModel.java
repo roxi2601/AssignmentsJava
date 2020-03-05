@@ -40,6 +40,5 @@ public class ControlViewModel {
     public int getRadiatorPower()
     {
         return model.getRadiatorPower();
-
     }
 }

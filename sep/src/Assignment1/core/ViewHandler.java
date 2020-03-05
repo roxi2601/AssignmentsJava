@@ -11,42 +11,93 @@ import java.io.IOException;
 public class ViewHandler
 {
 
-   private ViewModelFactory vmf;
+   private ViewModelFactory viewModelFactory;
+   private Scene controlScene;
+   private Scene displayScene;
+   private Stage mainStage;
 
-    public ViewHandler(ViewModelFactory vmf)
+    public ViewHandler(Stage mainStage, ViewModelFactory viewModelFactory)
     {
-        this.vmf = vmf;
+        this.mainStage=mainStage;
+        this.viewModelFactory = viewModelFactory;
     }
     public void start() throws Exception
     {
-        openView("Radiator Controller");
-       // openView("Display");
-
+        openControlView();
     }
-    public void openView(String viewToOpen) throws IOException
+    public void openControlView()
     {
-        Scene scene = null;
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = null;
-        Stage tmpStage = new Stage();
-        if("Radiator Controller".equals(viewToOpen))
+        try
         {
-            loader.setLocation(getClass().getResource("../view/control/control.fxml"));
-            root = loader.load();
-            ControlViewController view = loader.getController();
-            view.init(vmf.getControlViewModel());
-            tmpStage.setTitle("Radiator Controller");
-        }
-        else if ("Display".equals(viewToOpen)) {
-            loader.setLocation(getClass().getResource("../view/display/display.fxml"));
-            root = loader.load();
-            DisplayViewController view = loader.getController();
-            view.init(vmf.getDisplayViewModel());
-            tmpStage.setTitle("Display");
-        }
+            if(controlScene==null)
+            {
+                controlScene = getSceneController("../view/control/control.fxml");
+                changeScene("Radiator controller", controlScene);
+            }
+            else
+                changeScene("Radiator controller", controlScene);
 
-        scene = new Scene(root);
-        tmpStage.setScene(scene);
-        tmpStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+    }
+    public void openDisplayView()
+    {
+        try {
+            if(displayScene==null)
+            {
+                displayScene=getSceneDisplay("../view/display/display.fxml");
+                changeScene("Display",displayScene);
+            }
+            else
+                changeScene("Display",displayScene);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    private void changeScene(String s, Scene scene)
+    {
+        mainStage.setTitle(s);
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+    private Scene getSceneController(String path) {
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(getClass().getResource(path));
+            root = loader.load();
+
+            ControlViewController view = loader.getController();
+            view.init(this, viewModelFactory);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Scene(root);
+    }
+    private Scene getSceneDisplay(String path) {
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(getClass().getResource(path));
+            root = loader.load();
+
+            DisplayViewController view = loader.getController();
+            view.init(this, viewModelFactory);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Scene(root);
+
+
     }
 }

@@ -24,7 +24,7 @@ public class TemperatureModel implements Model
         this.temperature1 = 0;
         this.temperature2 = 0;
         radiator = new Radiator(support);
-        radiator.addListener(this, evt-> );
+        //radiator.addListener(this, evt-> );
         thermometer1 = new Thermometer(1,"t1",temperature1);
         thermometer2 = new Thermometer(7,"t2",temperature2);
         support =  new PropertyChangeSupport(this);

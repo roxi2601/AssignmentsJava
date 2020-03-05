@@ -1,4 +1,6 @@
 package Assignment1.view.control;
+import Assignment1.core.ViewHandler;
+import Assignment1.core.ViewModelFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,11 +13,13 @@ public class ControlViewController {
     @FXML
     Label stateLabel;
     private ControlViewModel controlViewModel;
+    private ViewHandler viewHandler;
 
 
-    public void init(ControlViewModel controlViewModel)
+    public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory)
     {
-        this.controlViewModel=controlViewModel;
+        this.viewHandler = viewHandler;
+        controlViewModel = viewModelFactory.getControlViewModel();
         stateLabel.textProperty().bindBidirectional(controlViewModel.stateProperty());
         stateLabel.textProperty().set(0 + "");
     }
@@ -32,4 +36,7 @@ public class ControlViewController {
     }
 
 
+    public void onDisplayButton(ActionEvent actionEvent) {
+        viewHandler.openDisplayView();
+    }
 }
