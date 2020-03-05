@@ -4,6 +4,7 @@ import Assignment1.model.radiator.OffState;
 import Assignment1.model.radiator.Radiator;
 import Assignment1.model.thermometer.Thermometer;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -23,11 +24,14 @@ public class TemperatureModel implements Model
     {
         this.temperature1 = 0;
         this.temperature2 = 0;
-        radiator = new Radiator(support);
-        //radiator.addListener(this, evt-> );
+
         thermometer1 = new Thermometer(1,"t1",temperature1);
         thermometer2 = new Thermometer(7,"t2",temperature2);
+
         support =  new PropertyChangeSupport(this);
+
+        radiator = new Radiator(support);
+        radiator.addListener(evt->updateState());
     }
 
     public double calcTemp1()
@@ -58,15 +62,18 @@ public class TemperatureModel implements Model
     {
         return radiator.getPower();
     }
-
+    public void updateState()
+    {
+        int pwr =  radiator.getPower();
+    }
     public String warning()
     {
         String warning = "";
-        if(calcTemp1() > 30 )
+        if(calcTemp1() > 30 || calcTemp2()>30)
         {
             warning ="Temperature in the room is too high";
         }
-        else if(calcTemp2()<17)
+        else if(calcTemp2()<10 || calcTemp1()<10)
         {
             warning = "Temperature in the room is to low";
         }

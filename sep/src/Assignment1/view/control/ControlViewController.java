@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import Assignment1.viewmodel.control.ControlViewModel;
 
-import java.beans.PropertyChangeEvent;
 
 public class ControlViewController {
 

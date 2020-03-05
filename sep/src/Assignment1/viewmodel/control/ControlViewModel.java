@@ -20,7 +20,6 @@ public class ControlViewModel {
     public StringProperty stateProperty() {
         return state;
     }
-
     public void turnUpRadiator() throws InterruptedException
     {
       if(model.getRadiatorPower()!=3)
