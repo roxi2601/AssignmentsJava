@@ -1,5 +1,6 @@
 package Assignment1.viewmodel.control;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import Assignment1.mediator.TemperatureModel;
@@ -32,8 +33,11 @@ public class ControlViewModel {
     }
     public void updateState()
     {
-        int pwr = model.getRadiatorPower();
-        state.setValue(pwr+"");
+        Platform.runLater(() -> {
+            int pwr = model.getRadiatorPower();
+            state.setValue(pwr+"");
+        });
+
     }
 
     public int getRadiatorPower()
