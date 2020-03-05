@@ -1,35 +1,39 @@
 package Assignment1.viewmodel.control;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import Assignment1.mediator.TemperatureModel;
 
+
 public class ControlViewModel {
 
     private StringProperty state;
-    private StringProperty hotOrCold;
+
+    private TemperatureModel model;
+
     public ControlViewModel(TemperatureModel model) {
-
+        this.model = model;
         state = new SimpleStringProperty();
-        hotOrCold=new SimpleStringProperty();
-        model.addListener("Temperatures", );
+        //How to make view model see changed state from 3 to 2(caused by running thread in Power3State constructor)
+        //model.addListener("Radiator state", evt->getRadiatorPower());
     }
-
     public StringProperty stateProperty() {
         return state;
     }
 
-    public void turnUpButton() {
-
-    }
-
-    public void turnDownButton() {
-
-    }
-    public int getRadiatorState()
+    public void turnUpRadiator() throws InterruptedException
     {
-        return radiatorState.get();
+      if(model.getRadiatorPower()!=3)
+      model.turnUpRadiator();
     }
+    public void turnDownRadiator()
+    {
+      if(model.getRadiatorPower()!=0)
+      model.turnDownRadiator();
+    }
+    public int getRadiatorPower()
+    {
+        return model.getRadiatorPower();
+    }
+
 }

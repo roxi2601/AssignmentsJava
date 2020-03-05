@@ -5,6 +5,6 @@ import java.beans.PropertyChangeListener;
 
 public interface Model extends PropertyChangeSubject
 {
-    double[] getTemperatureValues(int radiatorPower);
+    //double[] getTemperatureValues(int radiatorPower);
     void addListener(String name, PropertyChangeListener listener);
 }
