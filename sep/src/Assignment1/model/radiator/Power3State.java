@@ -5,6 +5,7 @@ public class Power3State implements RadiatorState {
     private Thread thread;
     public Power3State(Radiator radiator)
     {
+
         thread = new Thread(() -> {
             try
             {
