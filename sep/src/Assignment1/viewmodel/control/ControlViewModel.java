@@ -15,7 +15,7 @@ public class ControlViewModel {
         this.model = model;
         state = new SimpleStringProperty();
         //How to make view model see changed state from 3 to 2(caused by running thread in Power3State constructor)
-        //model.addListener("Radiator state", evt->getRadiatorPower());
+        model.addListener("Radiator state", evt->updateState());
     }
     public StringProperty stateProperty() {
         return state;
@@ -31,9 +31,15 @@ public class ControlViewModel {
       if(model.getRadiatorPower()!=0)
       model.turnDownRadiator();
     }
+    public void updateState()
+    {
+        int pwr = model.getRadiatorPower();
+        state.setValue(pwr+"");
+    }
+
     public int getRadiatorPower()
     {
         return model.getRadiatorPower();
-    }
 
+    }
 }
