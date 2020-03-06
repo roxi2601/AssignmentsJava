@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Assignment1.view.display.DisplayViewController">
    <children>
-      <LineChart layoutX="40.0" layoutY="14.0" legendSide="LEFT" prefHeight="339.0" prefWidth="506.0">
+      <LineChart fx:id="lineChart" layoutX="40.0" layoutY="14.0" legendSide="LEFT" prefHeight="339.0" prefWidth="506.0">
         <xAxis>
-          <CategoryAxis label="time" side="BOTTOM" />
+          <NumberAxis label="time" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis label="temperature" side="LEFT" />

@@ -4,7 +4,7 @@ import Assignment1.core.ViewModelFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import Assignment1.viewmodel.control.ControlViewModel;
+import Assignment1.view.control.ControlViewModel;
 
 
 public class ControlViewController {

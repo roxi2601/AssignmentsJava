@@ -91,7 +91,7 @@ public class ViewHandler
             root = loader.load();
 
             DisplayViewController view = loader.getController();
-            view.init(this, viewModelFactory);
+            view.init(this, viewModelFactory.getDisplayViewModel());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,4 +100,5 @@ public class ViewHandler
 
 
     }
+
 }
