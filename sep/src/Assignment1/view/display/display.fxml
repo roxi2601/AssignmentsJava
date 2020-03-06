@@ -12,10 +12,10 @@
    <children>
       <LineChart fx:id="lineChart" layoutX="40.0" layoutY="14.0" legendSide="LEFT" prefHeight="339.0" prefWidth="506.0">
         <xAxis>
-          <NumberAxis label="time" side="BOTTOM" />
+          <NumberAxis fx:id="xAxis" label="time" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis label="temperature" side="LEFT" />
+          <NumberAxis fx:id="zAxis" label="temperature" side="LEFT" />
         </yAxis>
       </LineChart>
       <Label fx:id="HotOrCold" layoutX="83.0" layoutY="353.0" textFill="#f50004">

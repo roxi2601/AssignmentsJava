@@ -12,49 +12,47 @@ public class TemperatureModel implements Model
 {
     private double temperature1;
     private double temperature2;
-
+    private double time;
     private Radiator radiator;
     private Thermometer thermometer1;
     private Thermometer thermometer2;
 
     private PropertyChangeSupport support;
-    private double time=0.0;
 
     public TemperatureModel()
     {
-        this.temperature1 = 0;
-        this.temperature2 = 0;
-
+        temperature1 = 0;
+        temperature2 = 0;
+        time = 0;
         thermometer1 = new Thermometer(1,"t1",temperature1);
         thermometer2 = new Thermometer(7,"t2",temperature2);
 
         support =  new PropertyChangeSupport(this);
 
         radiator = new Radiator(support);
+
     }
 
-        public double getTime(){
-            try
-            {
-                Thread.sleep(3000);
-                time += 3.0;
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-            return time;
-        }
+    public double getTime()
+    {
+        double temp = time;
+        time = time+3;
+        support.firePropertyChange("time",temp,time);
+        return time;
+    }
+
 
       public double calcTemp1()
     {
         double temp = thermometer1.temperature(temperature1,getRadiatorPower(),1,0,3);
+        support.firePropertyChange("t1",temperature1,temp);
         temperature1 = temp;
         return temp;
     }
     public double calcTemp2()
     {
         double temp = thermometer2.temperature(temperature2,getRadiatorPower(),7,0,3);
+        support.firePropertyChange("t2",temperature2,temp);
         temperature2 = temp;
         return temp;
     }

@@ -6,7 +6,6 @@ import Assignment1.mediator.TemperatureModel;
 import javafx.beans.value.ObservableValue;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 
 public class DisplayViewModel
@@ -22,16 +21,29 @@ public class DisplayViewModel
         warning = new SimpleStringProperty();
         model.addListener("warning", evt -> updateWarning());
         t1 = new SimpleDoubleProperty();
+        model.addListener("t1", evt -> updateTemperature1(evt));
         t2 = new SimpleDoubleProperty();
+        model.addListener("t2",evt -> updateTemperature2(evt));
         time = new SimpleDoubleProperty();
-        model.addListener("temperatures", evt -> updateTemperatures());
+        model.addListener("time",evt -> updateTime(evt));
     }
 
-    public void updateTemperatures(){
+    public void updateTemperature1(PropertyChangeEvent evt){
         Platform.runLater(()->{
-        t1.set(model.calcTemp1());
-        t2.set(model.calcTemp2());
-        time.set(model.getTime());
+            double val = (double)evt.getNewValue();
+            t1.setValue(val);
+        });
+    }
+    public void updateTemperature2(PropertyChangeEvent evt){
+        Platform.runLater(()->{
+            double val = (double)evt.getNewValue();
+            t2.setValue(val);
+        });
+    }
+    public void updateTime(PropertyChangeEvent evt){
+        Platform.runLater(()->{
+            double val = (double)evt.getNewValue();
+            time.setValue(val);
         });
     }
 
@@ -48,7 +60,7 @@ public class DisplayViewModel
         return warning;
     }
 
-    public DoubleProperty t1Property(){return t1;}
-    public DoubleProperty t2Property(){return t2;}
-    public DoubleProperty timeProperty(){return time;}
+    public ObservableValue t1Property(){return t1;}
+    public ObservableValue t2Property(){return t2;}
+    public ObservableValue timeProperty(){return time;}
 }

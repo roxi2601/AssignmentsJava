@@ -27,9 +27,12 @@ public class TemperatureApp extends Application
                 double temp2 =model.calcTemp2();
 
                 System.out.println("temp2: "+temp2+"  "+wrg);
+
                 try
                 {
                     Thread.sleep(3000);
+                    double time = model.getTime();
+                    System.out.println("time:"+time);
                 }
                 catch (InterruptedException e)
                 {
