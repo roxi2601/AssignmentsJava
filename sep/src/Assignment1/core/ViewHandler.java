@@ -41,7 +41,7 @@ public class ViewHandler
         catch (Exception e)
         {
             e.printStackTrace();
-//sjugsh
+
         }
     }
     public void openDisplayView()
