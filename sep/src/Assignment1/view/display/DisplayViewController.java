@@ -17,6 +17,11 @@ public class DisplayViewController {
     private XYChart.Data orange = new XYChart.Data(0.0,0.0);
     private XYChart.Data green = new XYChart.Data(0.0,0.0);
 
+
+    private XYChart.Series redSeries = new XYChart.Series();
+    private XYChart.Series orangeSeries = new XYChart.Series();
+    private XYChart.Series greenSeries = new XYChart.Series();
+
     private ViewHandler viewHandler;
 
     public void init(ViewHandler viewHandler, DisplayViewModel dvm)
@@ -30,17 +35,14 @@ public class DisplayViewController {
         orange.XValueProperty().bind(dvm.timeProperty());
         green.XValueProperty().bind(dvm.timeProperty());
 
-        XYChart.Series redSeries = new XYChart.Series();
         redSeries.setName("Thermometer1");
         redSeries.getData().add(red);
         lineChart.getData().add(redSeries);
 
-        XYChart.Series orangeSeries = new XYChart.Series();
         orangeSeries.setName("Thermometer2");
         orangeSeries.getData().add(orange);
         lineChart.getData().add(orangeSeries);
 
-        XYChart.Series greenSeries = new XYChart.Series();
         greenSeries.setName("Outside Thermometer");
         greenSeries.getData().add(green);
         lineChart.getData().add(greenSeries);
