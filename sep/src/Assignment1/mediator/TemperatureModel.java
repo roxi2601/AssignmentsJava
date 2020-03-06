@@ -13,12 +13,12 @@ public class TemperatureModel implements Model
     private double temperature1;
     private double temperature2;
 
-
     private Radiator radiator;
     private Thermometer thermometer1;
     private Thermometer thermometer2;
 
     private PropertyChangeSupport support;
+    private double time=0.0;
 
     public TemperatureModel()
     {
@@ -33,7 +33,20 @@ public class TemperatureModel implements Model
         radiator = new Radiator(support);
     }
 
-    public double calcTemp1()
+        public double getTime(){
+            try
+            {
+                Thread.sleep(3000);
+                time += 3.0;
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            return time;
+        }
+
+      public double calcTemp1()
     {
         double temp = thermometer1.temperature(temperature1,getRadiatorPower(),1,0,3);
         temperature1 = temp;

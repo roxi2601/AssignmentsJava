@@ -1,7 +1,7 @@
 package Assignment1.core;
 import Assignment1.mediator.TemperatureModel;
-import Assignment1.viewmodel.control.ControlViewModel;
-import Assignment1.viewmodel.display.DisplayViewModel;
+import Assignment1.view.control.ControlViewModel;
+import Assignment1.view.display.DisplayViewModel;
 
 public class ViewModelFactory {
     private ControlViewModel  controlViewModel;

@@ -1,4 +1,4 @@
-package Assignment1.viewmodel.control;
+package Assignment1.view.control;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;

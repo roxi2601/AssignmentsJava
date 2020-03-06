@@ -15,12 +15,12 @@ public class TemperatureApp extends Application
         ViewModelFactory vmf = new ViewModelFactory(mf);
         ViewHandler vh =  new ViewHandler(stage,vmf);
         vh.start();
-        //Why threads are always in application, not in the model?
+
         Thread thread =  new Thread(() -> {
             TemperatureModel model = (TemperatureModel)mf.getModel();
             while(true)
             {
-               double temp1 =  model.calcTemp1();
+                double temp1 =  model.calcTemp1();
                 String wrg= model.warning();
                 System.out.println("temp1: "+temp1+"  "+wrg);
 
@@ -37,7 +37,7 @@ public class TemperatureApp extends Application
                 }
             }
         });
-        //(I'm not sure)thread.setDaemon(true);
+        thread.setDaemon(true);
         thread.start();
     }
 

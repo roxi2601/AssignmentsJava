@@ -12,6 +12,7 @@ public class Power3State implements RadiatorState {
                 Thread.sleep(20000);
                 System.out.println("It's cooling down to 2nd state(thread finished");
                 radiator.setPowerState(new Power2State());
+
             }
             catch (InterruptedException e)
             {
