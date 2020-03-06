@@ -12,7 +12,7 @@
    <children>
       <LineChart fx:id="lineChart" layoutX="40.0" layoutY="14.0" legendSide="LEFT" prefHeight="339.0" prefWidth="506.0">
         <xAxis>
-          <CategoryAxis label="time" side="BOTTOM" />
+          <NumberAxis label="time" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis label="temperature" side="LEFT" />
