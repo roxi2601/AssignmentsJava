@@ -48,6 +48,7 @@ public class TemperatureModel implements Model
         support.firePropertyChange("t1",temperature1,temp);
         temperature1 = temp;
         return temp;
+
     }
     public double calcTemp2()
     {
