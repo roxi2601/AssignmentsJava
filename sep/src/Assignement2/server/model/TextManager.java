@@ -3,7 +3,8 @@ package Assignement2.server.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class TextManager implements TextManagerInt {
+public class TextManager implements TextManagerModel
+{
     private PropertyChangeSupport support;
 
     public TextManager()

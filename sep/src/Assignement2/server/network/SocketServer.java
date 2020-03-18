@@ -1,16 +1,16 @@
 package Assignement2.server.network;
 
-import Assignement2.server.model.TextManagerInt;
+import Assignement2.server.model.TextManagerModel;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SocketServer {
-    private TextManagerInt textManagerInt;
-    public SocketServer(TextManagerInt textManagerInt)
+    private TextManagerModel textManagerModel;
+    public SocketServer(TextManagerModel textManagerModel)
     {
-        this.textManagerInt=textManagerInt;
+        this.textManagerModel = textManagerModel;
     }
     public void startServer()
     {
@@ -18,7 +18,7 @@ public class SocketServer {
             ServerSocket welcomeSocket = new ServerSocket(2910);
             while (true) {
                 Socket socket = welcomeSocket.accept();
-                new Thread(new SocketHandler(socket, textManagerInt)).start();
+                new Thread(new SocketHandler(socket, textManagerModel)).start();
             }
         }
         catch (IOException e)

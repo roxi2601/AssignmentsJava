@@ -1,8 +1,7 @@
 package Assignement2.server.network;
 
-import Assignement2.server.model.TextManager;
-import Assignement2.server.model.TextManagerInt;
-import Assignement2.shared.transferobjects.Request;
+import Assignement2.server.model.TextManagerModel;
+import Assignement2.shared.transferobjects.Message;
 
 import java.beans.PropertyChangeEvent;
 import java.io.IOException;
@@ -12,14 +11,14 @@ import java.net.Socket;
 
 public class SocketHandler implements Runnable{
     private Socket socket;
-    private TextManagerInt textManagerInt;
+    private TextManagerModel textManagerModel;
 
     private ObjectOutputStream outToClient;
     private ObjectInputStream inFromClient;
-    public SocketHandler(Socket socket, TextManagerInt textManagerInt)
+    public SocketHandler(Socket socket, TextManagerModel textManagerModel)
     {
         this.socket=socket;
-        this.textManagerInt=textManagerInt;
+        this.textManagerModel = textManagerModel;
 
         try
         {
@@ -37,7 +36,7 @@ public class SocketHandler implements Runnable{
     public void run() { //not finished
         try {
 
-                Request request=(Request) inFromClient.readObject();
+                Message message =(Message) inFromClient.readObject();
             }
         catch (IOException | ClassNotFoundException e)
         {
@@ -45,11 +44,11 @@ public class SocketHandler implements Runnable{
         }
 
     }
-    private void onNewLogEntry(PropertyChangeEvent evt) {
+    /*private void onNewLogEntry(PropertyChangeEvent evt) {
         try {
-            outToClient.writeObject(new Request(evt.getPropertyName(), evt.getNewValue()));
+            outToClient.writeObject(new Message(evt.getPropertyName(), evt.getNewValue()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
