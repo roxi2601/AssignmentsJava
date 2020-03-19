@@ -22,6 +22,7 @@ public class SocketClient implements Client
     Thread thread = new Thread(handler);
     thread.setDaemon(true);
     thread.start();
+
   }
   public void sendMessage(String arg) throws IOException
   {

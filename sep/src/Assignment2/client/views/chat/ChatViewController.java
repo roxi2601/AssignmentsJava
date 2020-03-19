@@ -34,5 +34,6 @@ public class ChatViewController implements ViewController
   public void onSendButton() throws IOException
   {
   viewModel.sendMessage(sendField.getText());
+  sendField.clear();
   }
 }
