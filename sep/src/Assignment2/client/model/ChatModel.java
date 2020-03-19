@@ -1,9 +1,13 @@
 package Assignment2.client.model;
 
+import Assignment2.shared.util.Subject;
+
 import java.beans.PropertyChangeEvent;
+import java.io.IOException;
 
-public interface ChatModel
+public interface ChatModel extends Subject
 {
-  String receiveMessage(PropertyChangeEvent evt);
-
+  void sendMessage(String message) throws IOException;
+  void saveUsername(String username);
+  String getUsername();
 }

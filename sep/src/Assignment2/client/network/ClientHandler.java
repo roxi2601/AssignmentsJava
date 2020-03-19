@@ -36,7 +36,7 @@ public class ClientHandler implements Runnable, Subject
         outToServer.writeObject(new Message("Listener"));
         while (true)
         {
-            Message message = (Message) inFromServer.readObject();
+            Message message = new Message( inFromServer.readObject());
             support.firePropertyChange("NewMessage",null,message.getArg());
             //client.messageReceived((String) message.getArg());
         }
@@ -48,6 +48,7 @@ public class ClientHandler implements Runnable, Subject
     }
   public void sendMessage(String msg) throws IOException
   {
+    System.out.println("handler trying to send to server "+msg);
     outToServer.writeObject(new Message(msg));
   }
 
